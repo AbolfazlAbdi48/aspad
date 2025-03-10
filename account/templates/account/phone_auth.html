@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    اسپاد | ورود به حساب
+{% endblock %}
+
+{% block main %}
+    <div class="sign-in-area ptb-100">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <div class="authentication-form">
+                        <ul class="ps-0 list-unstyled d-flex authentication-nav">
+                            <li><a href="sign-in.html" class="active">ورود به حساب کاربری</a></li>
+                        </ul>
+                        <form method="post">
+                        {% csrf_token %}
+                            <div class="form-group mb-4">
+                                <label for="{{ form.phone_number.id_for_label }}"
+                                       class="font-vazir-bold-fd">
+                                    {{ form.phone_number.label }}
+                                </label>
+                                {{ form.phone_number }}
+                                <ul class="text-secondary mt-1">
+                                    {% if not form.phone_number.errors and not messages %}
+                                        <li>{{ form.phone_number.help_text }}</li>
+                                    {% endif %}
+
+                                    {% if form.phone_number.errors %}
+                                        {% for error in form.phone_number.errors %}
+                                            <li class="text-danger">{{ error }}</li>
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% for message in messages %}
+                                        <li {% if message.tags == 'error' %}
+                                            class="text-danger"{% endif %}>
+                                            {{ message }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="form-group mb-4">
+                                <button type="submit" class="main-btn">ورود</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
