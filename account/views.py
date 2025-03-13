@@ -19,6 +19,7 @@ def login_view(request):
 
         ip = get_client_ip(request)
         cache.set(f"{ip}-for-authentication", phone_number, 1000)
+        # TODO: cache next url
 
         if user_exist:
             return redirect("account:verify-password")

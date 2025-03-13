@@ -14,12 +14,12 @@ def jalali_converter_dict(time) -> dict:
             time_to_list[1] = month
             break
 
-    output = f'{time_to_list[2]} {time_to_list[1]} {time_to_list[0]} '
+    # output = f'{time_to_list[2]} {time_to_list[1]} {time_to_list[0]} '
 
     return {'day': time_to_list[2], 'month': time_to_list[1], 'year': time_to_list[0]}
 
 
-def jalali_converter(time) -> str:
+def jalali_converter_str(time) -> str:
     str_time = jalali_converter_dict(time)
     return f"{str_time['day']} {str_time['month']} {str_time['year']}"
 

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # Manual Apps
     "account",
     "core",
+    "auction_module",
 ]
 
 MIDDLEWARE = [
