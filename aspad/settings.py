@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "account",
     "core",
     "auction_module",
+    "evaluation_module",
 ]
 
 MIDDLEWARE = [
