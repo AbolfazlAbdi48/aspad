@@ -1,6 +1,13 @@
 from django.shortcuts import render
 
+from auction_module.models import Auction
+
 
 # Create your views here.
 def home(request):
-    return render(request, "core/home.html")
+    auctions = Auction.objects.filter()
+
+    context = {
+        "auctions": auctions
+    }
+    return render(request, "core/home.html", context)
