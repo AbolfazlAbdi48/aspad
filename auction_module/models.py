@@ -28,14 +28,17 @@ class Auction(models.Model):
 
     def get_start_time_jalali(self):
         return jalali_converter_str(self.start_time)
+
     get_start_time_jalali.short_description = 'شروع مزایده'
 
     def get_end_time_jalali(self):
         return jalali_converter_str(self.end_time)
+
     get_end_time_jalali.short_description = 'پایان مزایده'
 
     def get_start_price(self):
         return f"{self.start_price:,}"
+
     get_start_price.short_description = 'حداقل مبلغ مزایده'
 
     def __str__(self):
@@ -52,13 +55,16 @@ class Bid(models.Model):
     class Meta:
         verbose_name_plural = '2. پیشنهاد ها'
         verbose_name = 'پیشنهاد'
+        ordering = ("-amount",)
 
     def get_created_jalali(self):
         return jalali_converter_str(self.created)
+
     get_created_jalali.short_description = 'زمان ثبت پیشنهاد'
 
     def get_amount(self):
         return f"{self.amount:,}"
+
     get_amount.short_description = 'قیمت پیشنهادی'
 
     def __str__(self):

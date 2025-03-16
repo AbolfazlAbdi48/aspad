@@ -1,0 +1,162 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    اسپاد | مزایده {{ object.horse.name }}
+{% endblock %}
+
+{% block main %}
+    <div class="page-banner-area bg-black bg-img" data-background="{% static 'template/images/banner-bg-shape2.png' %}">
+        <div class="container mw-1680">
+            <div class="page-banner-content">
+                <h2>مزایده {{ auction.horse.name }}</h2>
+                <ul class="ps-0 mb-0 list-unstyled justify-content-center page-breadcrumb d-flex flex-wrap gap-4">
+                    <li><a href="index.html">صفحه اصلی</a></li>
+                    <li><span class="active">مزایده اسب</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="about-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-img-three"><img src="{{ object.horse.image.url }}" alt="about-us"></div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-content-three">
+                        <span class="top-title">مزایده</span>
+                        <h2 class="">مزایده {{ object.horse.name }}</h2>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
+                            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
+                            تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'auction:auction-bid' object.pk %}" class="main-btn style-one">ثبت پیشنهاد<i
+                                    class="fa-regular fa-arrow-left"></i></a>
+                        {% else %}
+                            <a href="{% url 'account:login' %}?next={% url 'auction:auction-bid' object.pk %}"
+                               class="main-btn style-one">ثبت پیشنهاد<i
+                                    class="fa-regular fa-arrow-left"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="container mb-5 pb-5">
+
+    <div class="product-info-area pb-100">
+        <div class="container">
+            <ul class="nav nav-tabs product-info-tabs justify-content-center" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
+                            data-bs-target="#description-tab-pane" type="button" role="tab"
+                            aria-controls="description-tab-pane" aria-selected="true">جزئیات مزایده
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="size-chart-tab" data-bs-toggle="tab"
+                            data-bs-target="#size-chart-tab-pane"
+                            type="button" role="tab" aria-controls="size-chart-tab-pane" aria-selected="false">پیشنهادات
+                        ثبت شده
+                    </button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="description-tab-pane" role="tabpanel"
+                     aria-labelledby="description-tab" tabindex="0">
+                    <div class="services-area pb-75">
+                        <div class="container">
+                            <div class="row" data-cues="slideInUp">
+                                <div class="col-xl-6 col-sm-6 col-12">
+                                    <div class="services-single-item style-two">
+                                        {#                                            <div class="icon"><img src="assets/images/services-icon-1.svg"#}
+                                        {#                                                                   alt="services-icon"></div>#}
+                                        <h3><a>جزئیات مزایده</a></h3>
+                                        <p></p>
+                                        <ul class="ps-0 mb-0 list-unstyled">
+                                            <li>حداقل پیشنهاد مزایده: {{ object.get_start_price }} تومان</li>
+                                            <li>تاریخ شروع مزایده: {{ object.get_start_time_jalali }}</li>
+                                            <li>تاریخ پایان مزایده: {{ object.get_end_time_jalali }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-sm-6 col-12">
+                                    <div class="services-single-item style-two">
+                                        {#                                            <div class="icon"><img src="assets/images/services-icon-1.svg"#}
+                                        {#                                                                   alt="services-icon"></div>#}
+                                        <h3><a>درباره اسب</a></h3>
+                                        <p></p>
+                                        <ul class="ps-0 mb-0 list-unstyled">
+                                            <li>سن اسب: {{ object.horse.age }}</li>
+                                            <li>نژاد اسب: {{ object.get_start_time_jalali }}</li>
+                                            {% if object.bids.first %}
+                                                <li>
+                                                    بیشترین قیمت: {{ object.bids.first.get_amount }} تومان
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    {% if request.user.is_authenticated %}
+                                        <a href="{% url 'auction:auction-bid' object.pk %}" class="main-btn style-one">ثبت
+                                            پیشنهاد<i
+                                                    class="fa-regular fa-arrow-left"></i></a>
+                                    {% else %}
+                                        <a href="{% url 'account:login' %}?next={% url 'auction:auction-bid' object.pk %}"
+                                           class="main-btn style-one">ثبت پیشنهاد<i
+                                                class="fa-regular fa-arrow-left"></i></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="size-chart-tab-pane" role="tabpanel" aria-labelledby="size-chart-tab"
+                     tabindex="0">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <td>نام</td>
+                            <td>قیمت مزایده</td>
+                            <td>تاریخ ثبت</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for bid in object.bids.all %}
+                            <tr>
+                                <td>{{ bid.bidder.get_full_name }}</td>
+                                <td>{{ bid.get_amount }} تومان</td>
+                                <td>{{ bid.get_created_jalali }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'auction:auction-bid' object.pk %}" class="main-btn style-one">ثبت پیشنهاد<i
+                                class="fa-regular fa-arrow-left"></i></a>
+                    {% else %}
+                        <a href="{% url 'account:login' %}?next={% url 'auction:auction-bid' object.pk %}"
+                           class="main-btn style-one">ثبت پیشنهاد<i
+                                class="fa-regular fa-arrow-left"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

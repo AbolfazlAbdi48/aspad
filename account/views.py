@@ -12,6 +12,11 @@ from extentions.utils import get_client_ip
 # Create your views here.
 def login_view(request):
     form = PhoneNumberForm(request.POST or None)
+    ip = get_client_ip(request)
+    next_url = request.GET.get('next')
+
+    if next_url:
+        cache.set(f"{ip}-for-next-url", next_url, 500)
 
     if form.is_valid():
         phone_number = form.cleaned_data.get('phone_number')

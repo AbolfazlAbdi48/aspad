@@ -250,7 +250,7 @@
                     {% for auction in auctions %}
                         <li class="bg-img" data-background="{{ auction.horse.image.url }}">
                             <h1>{{ forloop.counter }}</h1>
-                            <a href="cases-study-details.html">
+                            <a href="{% url 'auction:auction-detail' auction.pk %}">
                                 <div class="case-study-content">
                                     <span>آگهی مزایده</span>
                                     <div></div>
@@ -262,6 +262,7 @@
 
 
                 </ul>
+            </div>
             </div>
             <!-- <div class="text-center" data-cues="slideInUp">
                 <div class="d-inline-block"><a href="case-study.html"
