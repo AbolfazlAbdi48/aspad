@@ -18,4 +18,4 @@ class Horse(models.Model):
         verbose_name = 'اسب'
 
     def __str__(self):
-        return f"{self.name} - {self.owner.get_full_name()}"
+        return f"اسب: {self.name}"

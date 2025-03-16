@@ -48,73 +48,10 @@
                 <div class="collapse navbar-collapse for-mobile-menu" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link dropdown-toggle active">صفحه اصلی</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a href="index.html" class="nav-link active">آژانس خلاق</a>
-                                </li>
-                                <li class="nav-item"><a href="index-2.html" class="nav-link">آژانس بازرگانی</a></li>
-                                <li class="nav-item"><a href="index-3.html" class="nav-link">آژانس دیجیتال</a></li>
-                            </ul>
+                            <a href="{% url 'core:home' %}" class="nav-link dropdown-toggle">صفحه اصلی</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link dropdown-toggle">صفحات</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a href="about-us.html" class="nav-link">درباره ما</a></li>
-                                <li class="nav-item"><a href="team.html" class="nav-link">تیم</a></li>
-                                <li class="nav-item"><a href="faq.html" class="nav-link">سوالات متداول</a></li>
-                                <li class="nav-item"><a href="testimonials.html" class="nav-link">گواهینامه ها</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link dropdown-toggle">احراز هویت</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a href="sign-in.html" class="nav-link">ورود</a></li>
-                                        <li class="nav-item"><a href="sign-up.html" class="nav-link">ثبت نام</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item"><a href="privacy-policy.html" class="nav-link">سیاست حفظ حریم
-                                    خصوصی</a></li>
-                                <li class="nav-item"><a href="terms-conditions.html" class="nav-link">شرایط و
-                                    ضوابط</a></li>
-                                <li class="nav-item"><a href="404.html" class="nav-link">خطا</a></li>
-                                <li class="nav-item"><a href="contact-us.html" class="nav-link">با ما تماس
-                                    بگیرید</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link dropdown-toggle">خدمات</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a href="services.html" class="nav-link">خدمات</a></li>
-                                <li class="nav-item"><a href="service-details.html" class="nav-link">جزئیات
-                                    خدمات</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link dropdown-toggle">مطالعه موردی</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a href="case-study.html" class="nav-link">مطالعه موردی</a>
-                                </li>
-                                <li class="nav-item"><a href="cases-study-details.html" class="nav-link">جزئیات
-                                    مطالعه موردی</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link dropdown-toggle">خرید کنید</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a href="products.html" class="nav-link">محصولات</a></li>
-                                <li class="nav-item"><a href="cart.html" class="nav-link">سبد خرید</a></li>
-                                <li class="nav-item"><a href="checkout.html" class="nav-link">وارسی</a></li>
-                                <li class="nav-item"><a href="product-details.html" class="nav-link">جزئیات
-                                    محصول</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link dropdown-toggle">وبلاگ</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a href="blog.html" class="nav-link">وبلاگ</a></li>
-                                <li class="nav-item"><a href="single-blog.html" class="nav-link">صفحه وبلاگ واحد</a>
-                                </li>
-                            </ul>
+                            <a href="{% url 'account:profile' %}" class="nav-link dropdown-toggle">حساب کاربری</a>
                         </li>
                     </ul>
                     <div class="nav-right-options d-flex align-items-center">
