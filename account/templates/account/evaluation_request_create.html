@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    اسپاد | درخواست کارشناسی
+{% endblock %}
+
+{% block main %}
+    <div class="sign-in-area ptb-100">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <div class="authentication-form">
+                        <ul class="ps-0 list-unstyled d-flex authentication-nav">
+                            <li><a href="#" class="active">درخواست کارشناسی اسب</a></li>
+                        </ul>
+                        <form method="post" autocomplete="off">
+                        {% csrf_token %}
+
+                            <div class="row">
+                                <div class="col-12 mt-2">
+                                    <label for="{{ form.first_name.id_for_label }}"
+                                           class="font-vazir-bold-fd">
+                                        {{ form.horse.label }}*
+                                    </label>
+                                    {{ form.horse }}
+                                    <ul class="text-secondary mt-1">
+                                        {% if form.horse.errors %}
+                                            {% for error in form.horse.errors %}
+                                                <li class="text-danger">{{ error }}</li>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </ul>
+                                </div>
+
+                                <div class="col-12 mt-2">
+                                    <label for="{{ form.comment.id_for_label }}"
+                                           class="font-vazir-bold-fd">
+                                        {{ form.comment.label }}*
+                                    </label>
+                                    {{ form.comment }}
+                                    <ul class="text-secondary mt-1">
+                                        {% if form.comment.errors %}
+                                            {% for error in form.comment.errors %}
+                                                <li class="text-danger">{{ error }}</li>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <button type="submit" class="main-btn">ارسال درخواست</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

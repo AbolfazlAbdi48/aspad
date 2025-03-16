@@ -30,9 +30,9 @@ class HorseEvaluationRequest(models.Model):
         ('rejected', _('Rejected')),
     ]
 
-    horse = models.ForeignKey(Horse, on_delete=models.CASCADE, verbose_name=_("Horse"))
+    horse = models.ForeignKey(Horse, on_delete=models.CASCADE, verbose_name=_("اسب"))
     requested_by = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("Requested By"))
-    comment = models.TextField(blank=True, null=True, verbose_name=_("Comment"))
+    comment = models.TextField(blank=True, null=True, verbose_name=_("توضیحات"))
     status = models.CharField(
         max_length=15, choices=STATUS_CHOICES, default='pending', verbose_name=_("Status")
     )

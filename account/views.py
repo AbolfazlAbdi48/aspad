@@ -1,11 +1,16 @@
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 
 from account.forms import PhoneNumberForm, RegisterForm, PasswordVerifyForm
 from account.models import User
+from evaluation_module.models import HorseEvaluationRequest
 from extentions.utils import get_client_ip
 
 
@@ -103,3 +108,32 @@ def complete_register_view(request):
         'form': form
     }
     return render(request, 'account/complete_register.html', context)
+
+
+@login_required
+def profile_view(request):
+    return render(request, "account/profile.html")
+
+
+class EvaluationRequestListView(LoginRequiredMixin, ListView):
+    model = HorseEvaluationRequest
+    template_name = 'account/evaluation_request_list.html'
+
+    def get_queryset(self):
+        return HorseEvaluationRequest.objects.filter(requested_by=self.request.user)
+
+
+class EvaluationRequestDetailView(LoginRequiredMixin, DetailView):
+    model = HorseEvaluationRequest
+    template_name = 'account/evaluation_request_detail.html'
+
+
+class EvaluationRequestCreateView(LoginRequiredMixin, CreateView):
+    model = HorseEvaluationRequest
+    fields = ['horse', 'comment']
+    template_name = 'account/evaluation_request_create.html'
+    success_url = reverse_lazy('account:profile-evaluation-requests')
+
+    def form_valid(self, form):
+        form.instance.requested_by = self.request.user
+        return super().form_valid(form)

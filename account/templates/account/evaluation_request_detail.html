@@ -1,0 +1,63 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    اسپاد | درخواست های کارشناسی
+{% endblock %}
+
+{% block main %}
+    <div class="sign-in-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-12">
+                    <ul class="list-group">
+                        <li class="list-group-item active py-3" aria-current="true">
+                            پروفایل {{ request.user.get_full_name }}</li>
+                        <li class="list-group-item">
+                            <a href="{% url 'account:profile-evaluation-requests' %}">کارشناسی اسب</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">مزایده ها</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-8 col-12">
+                    <h5>کارشناس اسب {{ object.horse.name }}</h5>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <img src="{{ object.horse.image.url }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">وضعیت کارشناسی: {{ object.get_status_display }}</h5>
+                                    <p class="card-text">کامنت شما: {{ object.comment }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-5">
+                            <h5>کارشناسی ها</h5>
+                            {% for report in object.horseevaluationreport_set.all %}
+                                <div class="col-12 mb-3">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            کارشناس: {{ report.expert.user.get_full_name }}
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">توضیحات کارشناسی: {{ report.report_text }}</p>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">امتیاز اصالت: {{ report.authenticity_score }}</li>
+                                                <li class="list-group-item">امتیاز سلامتی: {{ report.health_score }}</li>
+                                                <li class="list-group-item">امتیاز سرعت: {{ report.speed_score }}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
