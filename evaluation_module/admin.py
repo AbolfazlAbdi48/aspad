@@ -4,6 +4,11 @@ from evaluation_module.models import Expert, HorseEvaluationRequest, HorseEvalua
 
 
 # Register your models here.
+class EvaluationReportInline(admin.StackedInline):
+    model = HorseEvaluationReport
+    extra = 0
+
+
 @admin.register(Expert)
 class ExpertAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'experience_years', 'verified', 'blocked')
@@ -15,6 +20,10 @@ class HorseEvaluationRequestAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'get_created_jalali', 'status')
     list_filter = ('created_at',)
     search_fields = ('horse__name',)
+
+    inlines = [
+        EvaluationReportInline
+    ]
 
 
 @admin.register(HorseEvaluationReport)

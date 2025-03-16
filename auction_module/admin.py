@@ -4,12 +4,21 @@ from auction_module.models import Auction, Bid
 
 
 # Register your models here.
+class BidInline(admin.StackedInline):
+    model = Bid
+    extra = 0
+
+
 @admin.register(Auction)
 class AuctionAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'get_start_price', 'get_start_time_jalali', 'status')
     list_editable = ('status',)
     list_filter = ('start_time', 'end_time')
     search_fields = ('created_by__first_name', 'created_by__last_name', 'horse__name')
+
+    inlines = [
+        BidInline
+    ]
 
 
 @admin.register(Bid)
