@@ -58,7 +58,8 @@
                             </div>
                             <div class="skill-bar" data-percentage="95%">
                                 <h4 class="progress-title-holder clearfix">
-                                    <span class="progress-title">امتیاز سرعت اسب</span><span class="progress-number-wrapper"><span
+                                    <span class="progress-title">امتیاز سرعت اسب</span><span
+                                        class="progress-number-wrapper"><span
                                         class="progress-number-mark"><span class="percent"></span><span
                                         class="down-arrow"></span></span></span>
                                 </h4>
@@ -68,8 +69,9 @@
                             </div>
                         </div>
                         <div class="d-inline-block">
-                            <a href="{% url 'account:profile-evaluation-Create' %}" class="main-btn style-one">درخواست کارشناسی اسب<i
-                                    class="fa-regular fa-arrow-left"></i></a>
+                            <a href="{% url 'account:profile-evaluation-Create' %}" class="main-btn style-one">درخواست
+                                کارشناسی اسب<i
+                                        class="fa-regular fa-arrow-left"></i></a>
                         </div>
                     </div>
                 </div>
@@ -105,13 +107,13 @@
 
                 </ul>
             </div>
-            </div>
-            <!-- <div class="text-center" data-cues="slideInUp">
-                <div class="d-inline-block"><a href="case-study.html"
-                        class="circle-btn d-inline-block text-decoration-none mt-4 mt-xl-5 d-flex align-items-center justify-content-center"><span>بیشتر
-                            بدانید</span><i class="fa-solid fa-arrow-up-right"></i></a></div>
-            </div> -->
         </div>
+        <!-- <div class="text-center" data-cues="slideInUp">
+            <div class="d-inline-block"><a href="case-study.html"
+                    class="circle-btn d-inline-block text-decoration-none mt-4 mt-xl-5 d-flex align-items-center justify-content-center"><span>بیشتر
+                        بدانید</span><i class="fa-solid fa-arrow-up-right"></i></a></div>
+        </div> -->
+    </div>
     <div class="services-area bg-color-030303 ptb-100">
         <div class="container">
             <div class="section-title white-title" data-cues="slideInUp">
@@ -123,7 +125,7 @@
                     <div class="services-single-item">
                         <div class="icon"><img src="{% static 'template/images/services-icon-1.svg' %}"
                                                alt="services-icon"></div>
-                        <h3><a href="service-details.html">مزایده اسب</a></h3>
+                        <h3><a href="{% url 'auction:auction-list' %}">مزایده اسب</a></h3>
                         <p>راهنمایی تخصصی در تدوین و برنامه های رشد.</p>
                         <ul class="ps-0 mb-0 list-unstyled">
                             <li>مدیریت تولید</li>
@@ -136,7 +138,7 @@
                     <div class="services-single-item">
                         <div class="icon"><img src="{% static 'template/images/services-icon-2.svg' %}"
                                                alt="services-icon"></div>
-                        <h3><a href="service-details.html">کارشناسی اسب</a></h3>
+                        <h3><a href="{% url 'account:profile-evaluation-requests' %}">کارشناسی اسب</a></h3>
                         <p>راهنمایی تخصصی در تدوین و برنامه های رشد.</p>
                         <ul class="ps-0 mb-0 list-unstyled">
                             <li>استراتژی های بازاریابی</li>

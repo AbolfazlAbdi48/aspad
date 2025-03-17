@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView, CreateView
+from django.views.generic import DetailView, CreateView, ListView
 from django.urls import reverse
 
 from auction_module.forms import BidForm
@@ -9,6 +9,11 @@ from auction_module.models import Auction, Bid
 
 
 # Create your views here.
+class AuctionListView(ListView):
+    model = Auction
+    template_name = "auction/auction_list.html"
+
+
 class AuctionDetailView(DetailView):
     model = Auction
     template_name = "auction/auction_detail.html"

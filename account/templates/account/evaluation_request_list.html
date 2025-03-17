@@ -22,9 +22,14 @@
                     </ul>
                 </div>
                 <div class="col-md-8 col-12">
-                <h5>کارشناسی های ثبت شده</h5>
-                    {% for object in object_list %}
-                        <div class="row">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-between align-items-center mb-3 mt-4 mt-md-0">
+                            <h5>کارشناسی های ثبت شده</h5>
+                            <a href="{% url 'account:profile-evaluation-Create' %}" class="main-btn style-one p-2">ثبت
+                                کارشناسی جدید</a>
+                        </div>
+
+                        {% for object in object_list %}
                             <div class="col-12 mb-3">
                                 <div class="card">
                                     <div class="card-header">
@@ -35,12 +40,13 @@
                                     </div>
                                     <div class="card-body">
                                         <p class="card-text">{{ object.comment }}</p>
-                                        <a href="{% url 'account:profile-evaluation-detail' object.pk %}" class="btn btn-outline-primary">مشاهده جزئیات</a>
+                                        <a href="{% url 'account:profile-evaluation-detail' object.pk %}"
+                                           class="btn btn-outline-primary">مشاهده جزئیات</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
 
                 </div>
             </div>
