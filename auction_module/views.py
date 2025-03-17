@@ -18,6 +18,15 @@ class AuctionDetailView(DetailView):
     model = Auction
     template_name = "auction/auction_detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        auction = self.get_object()
+        has_bid = False
+        if self.request.user.is_authenticated:
+            has_bid = auction.bids.filter(bidder=self.request.user).exists()
+        context["user_has_bid"] = has_bid
+        return context
+
 
 class BidCreateView(LoginRequiredMixin, CreateView):
     model = Bid

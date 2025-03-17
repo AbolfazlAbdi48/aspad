@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
@@ -107,6 +107,11 @@ def complete_register_view(request):
         'form': form
     }
     return render(request, 'account/complete_register.html', context)
+
+
+def custom_logout_view(request):
+    logout(request)
+    return redirect("/")
 
 
 @login_required

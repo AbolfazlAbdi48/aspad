@@ -27,6 +27,13 @@
                         </div>
                     {% endfor %}
 
+                    {% if user_has_bid %}
+                        <div class="alert alert-secondary">
+                            شما قبلا در این مزایده شرکت کرده اید!
+                        </div>
+                    {% endif %}
+
+
                 </div>
                 <div class="col-lg-6">
                     <div class="about-img-three"><img src="{{ object.horse.image.url }}" alt="about-us"></div>

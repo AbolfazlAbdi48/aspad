@@ -4,6 +4,7 @@ from .views import (
     complete_register_view,
     verify_pass_view,
     profile_view,
+    custom_logout_view,
     EvaluationRequestListView,
     EvaluationRequestDetailView,
     EvaluationRequestCreateView
@@ -16,6 +17,7 @@ urlpatterns = [
     path("profile/evaluations/create", EvaluationRequestCreateView.as_view(), name="profile-evaluation-Create"),
     path("profile/evaluations/<int:pk>", EvaluationRequestDetailView.as_view(), name="profile-evaluation-detail"),
 
+    path("logout/", custom_logout_view, name="logout"),
     path("login/", login_view, name="login"),
     path("login/complete/", complete_register_view, name="login-complete"),
     path("login/pswd/", verify_pass_view, name="verify-password"),
