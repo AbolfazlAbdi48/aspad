@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
 
     # Manual Apps
     "account",
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     "auction_module",
     "evaluation_module",
     "gym_module",
+    "shop_module",
 ]
 
 MIDDLEWARE = [
