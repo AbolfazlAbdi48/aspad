@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    اسپاد | {{ object.name }}
+{% endblock %}
+
+{% block main %}
+    <div class="page-banner-area bg-black bg-img" data-background="{% static 'template/images/banner-bg-shape2.png' %}">
+        <div class="container mw-1680">
+            <div class="page-banner-content">
+                <h2>{{ object.name }}</h2>
+                <ul class="ps-0 mb-0 list-unstyled justify-content-center page-breadcrumb d-flex flex-wrap gap-4">
+                    <li><a href="{% url 'core:home' %}">صفحه اصلی</a></li>
+                    <li><span class="active">رزرو باشگاه</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="about-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-img-three"><img src="{{ object.image.url }}" alt="about-us"></div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-content-three">
+                        <h2 class="">{{ object.name }}</h2>
+                        <p>{{ object.description }}</p>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <i class="fas fa-inbox"></i>
+                                ایمیل: {{ object.email }}
+                            </li>
+                            <li>
+                                <i class="fas fa-globe"></i>
+                                وبسایت: {{ object.email }}
+                            </li>
+                            <li>
+                                <i class="fas fa-globe"></i>
+                                شماره تماس: {{ object.contact_number }}
+                            </li>
+                        </ul>
+
+                        <a href="tel:{{ object.contact_number }}" class="main-btn style-one">برای رزرو تماس بگیرید<i
+                                class="fa-regular fa-arrow-left"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
