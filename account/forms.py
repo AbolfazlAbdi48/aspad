@@ -1,6 +1,9 @@
 import re
 from django import forms
 from django.contrib.auth import password_validation
+from django.utils.translation import gettext_lazy as _
+
+from auction_module.models import Auction
 
 
 class PhoneNumberForm(forms.Form):
@@ -53,3 +56,30 @@ class RegisterForm(forms.Form):
         help_text=password_validation.password_validators_help_text_html(),
         label='رمزعبور'
     )
+
+
+class AuctionForm(forms.ModelForm):
+    class Meta:
+        model = Auction
+        fields = ['horse_name', 'horse_age', 'horse_breed', 'horse_description',
+                  'horse_image', 'start_price', 'start_time', 'end_time']
+        widgets = {
+            'start_time': forms.DateTimeInput(attrs={
+                'type': 'datetime-local',
+                'class': 'form-control',
+            }),
+            'end_time': forms.DateTimeInput(attrs={
+                'type': 'datetime-local',
+                'class': 'form-control',
+            }),
+        }
+        labels = {
+            'start_time': _('زمان شروع مزایده'),
+            'end_time': _('زمان پایان مزایده'),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            if not isinstance(field.widget, forms.DateTimeInput):
+                field.widget.attrs['class'] = 'form-control'

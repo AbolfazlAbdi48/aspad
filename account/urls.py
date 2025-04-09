@@ -7,7 +7,10 @@ from .views import (
     custom_logout_view,
     EvaluationRequestListView,
     EvaluationRequestDetailView,
-    EvaluationRequestCreateView
+    EvaluationRequestCreateView,
+    UserAuctionListView,
+    UserAuctionCreateView,
+    UserAuctionUpdateView,
 )
 
 app_name = "account"
@@ -16,6 +19,9 @@ urlpatterns = [
     path("profile/evaluations/", EvaluationRequestListView.as_view(), name="profile-evaluation-requests"),
     path("profile/evaluations/create", EvaluationRequestCreateView.as_view(), name="profile-evaluation-Create"),
     path("profile/evaluations/<int:pk>", EvaluationRequestDetailView.as_view(), name="profile-evaluation-detail"),
+    path("profile/auctions/", UserAuctionListView.as_view(), name="profile-auction-list"),
+    path("profile/auctions/create", UserAuctionCreateView.as_view(), name="profile-auction-create"),
+    path("profile/auctions/update/<int:pk>", UserAuctionUpdateView.as_view(), name="profile-auction-update"),
 
     path("logout/", custom_logout_view, name="logout"),
     path("login/", login_view, name="login"),

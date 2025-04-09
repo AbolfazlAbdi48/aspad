@@ -1,8 +1,9 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
-    اسپاد | درخواست های کارشناسی
+    اسپاد | مزایده های من
 {% endblock %}
 
 {% block main %}
@@ -15,24 +16,24 @@
                 <div class="col-md-8 col-12">
                     <div class="row">
                         <div class="col-12 d-flex justify-content-between align-items-center mb-3 mt-4 mt-md-0">
-                            <h5>کارشناسی های ثبت شده</h5>
-                            <a href="{% url 'account:profile-evaluation-Create' %}" class="main-btn style-one p-2">ثبت
-                                کارشناسی جدید</a>
+                            <h5>مزایده های شما</h5>
+                            <a href="{% url 'account:profile-auction-create' %}" class="main-btn style-one p-2">ایجاد
+                                مزایده</a>
                         </div>
 
                         {% for object in object_list %}
-                            <div class="col-12 mb-3">
+                            <div class="col-md-6 col-12 mb-3">
                                 <div class="card">
                                     <div class="card-header">
-                                        کارشناسی اسب {{ object.horse.name }}
-                                        <div class="badge bg-secondary">
-                                            وضعیت: {{ object.get_status_display }}
-                                        </div>
+                                        مزایده {{ object.horse_name }}
                                     </div>
                                     <div class="card-body">
-                                        <p class="card-text">{{ object.comment }}</p>
-                                        <a href="{% url 'account:profile-evaluation-detail' object.pk %}"
-                                           class="btn btn-outline-primary">مشاهده جزئیات</a>
+                                        <img src="{{ object.horse_image.url }}" alt="" class="imf-fluid mb-3">
+                                        <p class="mb-3">شروع از: {{ object.get_start_price }} تومان</p>
+                                        <a href="{% url 'auction:auction-detail' object.pk %}"
+                                           class="btn btn-outline-primary">مشاهده</a>
+                                        <a href="{% url 'account:profile-auction-update' object.pk %}"
+                                           class="btn btn-outline-warning">ویرایش</a>
                                     </div>
                                 </div>
                             </div>

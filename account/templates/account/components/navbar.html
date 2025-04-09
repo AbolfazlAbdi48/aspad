@@ -1,0 +1,12 @@
+<ul class="list-group">
+    <li class="list-group-item active py-3" aria-current="true">پروفایل {{ request.user.get_full_name }}</li>
+    <li class="list-group-item">
+        <a href="{% url 'account:profile-evaluation-requests' %}">کارشناسی اسب</a>
+    </li>
+    <li class="list-group-item">
+        <a href="{% url 'account:profile-auction-list' %}">مزایده های شما</a>
+    </li>
+    <li class="list-group-item">
+        <a href="{% url 'account:logout' %}">خروج از حساب</a>
+    </li>
+</ul>

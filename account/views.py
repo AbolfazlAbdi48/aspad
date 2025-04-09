@@ -6,10 +6,11 @@ from django.core.cache import cache
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-from account.forms import PhoneNumberForm, RegisterForm, PasswordVerifyForm
+from account.forms import PhoneNumberForm, RegisterForm, PasswordVerifyForm, AuctionForm
 from account.models import User
+from auction_module.models import Auction
 from evaluation_module.models import HorseEvaluationRequest
 from extentions.utils import get_client_ip
 
@@ -141,3 +142,32 @@ class EvaluationRequestCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.requested_by = self.request.user
         return super().form_valid(form)
+
+
+class UserAuctionListView(LoginRequiredMixin, ListView):
+    model = Auction
+    template_name = 'account/user_auction_list.html'
+
+    def get_queryset(self):
+        return self.model.objects.filter(created_by=self.request.user)
+
+
+class UserAuctionCreateView(LoginRequiredMixin, CreateView):
+    model = Auction
+    form_class = AuctionForm
+    template_name = 'account/user_auction_form.html'
+    success_url = reverse_lazy('account:profile-auction-list')
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
+
+class UserAuctionUpdateView(LoginRequiredMixin, UpdateView):
+    model = Auction
+    form_class = AuctionForm
+    template_name = 'account/user_auction_form.html'
+    success_url = reverse_lazy('account:profile-auction-list')
+
+    def get_queryset(self):
+        return self.model.objects.filter(created_by=self.request.user)
