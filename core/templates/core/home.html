@@ -92,7 +92,7 @@
                 <ul class="slider" data-cues="slideInUp">
 
                     {% for auction in auctions %}
-                        <li class="bg-img" data-background="{{ auction.horse.image.url }}">
+                        <li class="bg-img" data-background="{{ auction.horse_image.url }}">
                             <h1>{{ forloop.counter }}</h1>
                             <a href="{% url 'auction:auction-detail' auction.pk %}">
                                 <div class="case-study-content">

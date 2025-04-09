@@ -26,7 +26,7 @@
                         <div class="product-single-item">
                             <div class="product-img">
                                 <a href="{% url 'auction:auction-detail' auction.pk %}" class="d-block"><img
-                                        src="{{ auction.horse.image.url }}"
+                                        src="{{ auction.horse_image.url }}"
                                         alt="product"></a>
 {#                                <ul class="ps-0 mb-0 list-unstyled social-link">#}
 {#                                    <li><a href="product-details.html"><i class="fa-regular fa-heart"></i></a></li>#}
@@ -36,7 +36,7 @@
 {#                                    </li>#}
 {#                                </ul>#}
                             </div>
-                            <h3><a href="{% url 'auction:auction-detail' auction.pk %}">مزایده اسب {{ auction.horse.name }}</a></h3>
+                            <h3><a href="{% url 'auction:auction-detail' auction.pk %}">مزایده اسب {{ auction.horse_name }}</a></h3>
                             <span>شروع از: {{ auction.get_start_price }} تومان</span>
                         </div>
                     </div>

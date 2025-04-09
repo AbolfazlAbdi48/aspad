@@ -3,14 +3,14 @@
 {% load humanize %}
 
 {% block title %}
-    اسپاد | مزایده {{ object.horse.name }}
+    اسپاد | مزایده {{ object.horse_name }}
 {% endblock %}
 
 {% block main %}
     <div class="page-banner-area bg-black bg-img" data-background="{% static 'template/images/banner-bg-shape2.png' %}">
         <div class="container mw-1680">
             <div class="page-banner-content">
-                <h2>مزایده {{ auction.horse.name }}</h2>
+                <h2>مزایده {{ auction.horse_name }}</h2>
                 <ul class="ps-0 mb-0 list-unstyled justify-content-center page-breadcrumb d-flex flex-wrap gap-4">
                     <li><a href="index.html">صفحه اصلی</a></li>
                     <li><span class="active">مزایده اسب</span></li>
@@ -52,13 +52,13 @@
 
                 </div>
                 <div class="col-lg-6">
-                    <div class="about-img-three"><img src="{{ object.horse.image.url }}" alt="about-us"></div>
+                    <div class="about-img-three"><img src="{{ object.horse_image.url }}" alt="about-us"></div>
                 </div>
                 <div class="col-lg-6">
                     <div class="about-content-three">
                         <span class="top-title">مزایده</span>
-                        <h2 class="">مزایده {{ object.horse.name }}</h2>
-                        <p>{{ object.horse.description }}</p>
+                        <h2 class="">مزایده {{ object.horse_name }}</h2>
+                        <p>{{ object.horse_description }}</p>
 
                         <a href="#auction-detail"
                            class="main-btn style-one">ثبت پیشنهاد<i
@@ -129,7 +129,7 @@
                                         <h3><a>درباره اسب</a></h3>
                                         <p></p>
                                         <ul class="ps-0 mb-0 list-unstyled">
-                                            <li>سن اسب: {{ object.horse.age }}</li>
+                                            <li>سن اسب: {{ object.horse_age }}</li>
                                             <li>نژاد اسب: {{ object.get_start_time_jalali }}</li>
                                             {% if object.bids.first %}
                                                 <li>
