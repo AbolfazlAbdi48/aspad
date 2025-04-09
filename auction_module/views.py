@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
+from django.utils import timezone
 from django.views.generic import DetailView, CreateView, ListView
 from django.urls import reverse
 
@@ -25,6 +26,7 @@ class AuctionDetailView(DetailView):
         if self.request.user.is_authenticated:
             has_bid = auction.bids.filter(bidder=self.request.user).exists()
         context["user_has_bid"] = has_bid
+        context["now"] = timezone.now()
         return context
 
 

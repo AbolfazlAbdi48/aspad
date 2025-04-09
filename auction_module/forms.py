@@ -22,6 +22,6 @@ class BidForm(forms.ModelForm):
             raise forms.ValidationError("مزایده‌ای برای این پیشنهاد یافت نشد.")
 
         if amount <= self.auction.start_price:
-            raise forms.ValidationError("پیشنهاد شما باید بیشتر از قیمت پایه باشد.")
+            raise forms.ValidationError(f"پیشنهاد شما باید بیشتر از قیمت پایه باشد. حداقل {amount:,} تومان")
 
         return amount

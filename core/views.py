@@ -5,7 +5,7 @@ from auction_module.models import Auction
 
 # Create your views here.
 def home(request):
-    auctions = Auction.objects.filter()
+    auctions = Auction.objects.filter()[:4]
 
     context = {
         "auctions": auctions

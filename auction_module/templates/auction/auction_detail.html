@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
     اسپاد | مزایده {{ object.horse.name }}
@@ -33,6 +34,21 @@
                         </div>
                     {% endif %}
 
+                    {% if object.end_time < now %}
+                        <div class="alert alert-danger">
+                            {{ object.end_time|naturaltime }} مزایده به پایان رسیده.
+                        </div>
+                    {% elif object.start_time > now %}
+                        <div class="alert alert-success">
+                            {{ object.start_time|naturaltime }} تا شروع مزایده!
+                        </div>
+                    {% else %}
+                        <div class="alert alert-success">
+                            در مزایده شرکت کنید. {{ object.end_time|naturaltime }} تا پایان مزایده.
+                            <a href="#auction-detail">شرکت در مزایده</a>
+                        </div>
+                    {% endif %}
+
 
                 </div>
                 <div class="col-lg-6">
@@ -42,18 +58,11 @@
                     <div class="about-content-three">
                         <span class="top-title">مزایده</span>
                         <h2 class="">مزایده {{ object.horse.name }}</h2>
-                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-                            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
-                            تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+                        <p>{{ object.horse.description }}</p>
 
-                        {% if request.user.is_authenticated %}
-                            <a href="{% url 'auction:auction-bid' object.pk %}" class="main-btn style-one">ثبت پیشنهاد<i
-                                    class="fa-regular fa-arrow-left"></i></a>
-                        {% else %}
-                            <a href="{% url 'account:login' %}?next={% url 'auction:auction-bid' object.pk %}"
-                               class="main-btn style-one">ثبت پیشنهاد<i
-                                    class="fa-regular fa-arrow-left"></i></a>
-                        {% endif %}
+                        <a href="#auction-detail"
+                           class="main-btn style-one">ثبت پیشنهاد<i
+                                class="fa-regular fa-arrow-left"></i></a>
                     </div>
                 </div>
             </div>
@@ -62,8 +71,23 @@
 
     <hr class="container mb-5 pb-5">
 
-    <div class="product-info-area pb-100">
+
+    <div class="product-info-area pb-100" id="auction-detail">
         <div class="container">
+            {% if object.end_time < now %}
+                <div class="alert alert-danger">
+                    {{ object.end_time|naturaltime }} مزایده به پایان رسیده.
+                </div>
+            {% elif object.start_time > now %}
+                <div class="alert alert-success">
+                    {{ object.start_time|naturaltime }} تا شروع مزایده!
+                </div>
+            {% else %}
+                <div class="alert alert-success">
+                    در مزایده شرکت کنید. {{ object.end_time|naturaltime }} تا پایان مزایده.
+                    <a href="#auction-detail">شرکت در مزایده</a>
+                </div>
+            {% endif %}
             <ul class="nav nav-tabs product-info-tabs justify-content-center" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
@@ -116,14 +140,17 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    {% if request.user.is_authenticated %}
-                                        <a href="{% url 'auction:auction-bid' object.pk %}" class="main-btn style-one">ثبت
-                                            پیشنهاد<i
+                                    {% if object.start_time < now and object.end_time > now %}
+                                        {% if request.user.is_authenticated %}
+                                            <a href="{% url 'auction:auction-bid' object.pk %}"
+                                               class="main-btn style-one">ثبت
+                                                پیشنهاد<i
+                                                        class="fa-regular fa-arrow-left"></i></a>
+                                        {% else %}
+                                            <a href="{% url 'account:login' %}?next={% url 'auction:auction-bid' object.pk %}"
+                                               class="main-btn style-one">ثبت پیشنهاد<i
                                                     class="fa-regular fa-arrow-left"></i></a>
-                                    {% else %}
-                                        <a href="{% url 'account:login' %}?next={% url 'auction:auction-bid' object.pk %}"
-                                           class="main-btn style-one">ثبت پیشنهاد<i
-                                                class="fa-regular fa-arrow-left"></i></a>
+                                        {% endif %}
                                     {% endif %}
                                 </div>
                             </div>
@@ -153,13 +180,17 @@
                         </tbody>
                     </table>
 
-                    {% if request.user.is_authenticated %}
-                        <a href="{% url 'auction:auction-bid' object.pk %}" class="main-btn style-one">ثبت پیشنهاد<i
-                                class="fa-regular fa-arrow-left"></i></a>
-                    {% else %}
-                        <a href="{% url 'account:login' %}?next={% url 'auction:auction-bid' object.pk %}"
-                           class="main-btn style-one">ثبت پیشنهاد<i
-                                class="fa-regular fa-arrow-left"></i></a>
+                    {% if object.start_time < now and object.end_time > now %}
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'auction:auction-bid' object.pk %}"
+                               class="main-btn style-one">ثبت
+                                پیشنهاد<i
+                                        class="fa-regular fa-arrow-left"></i></a>
+                        {% else %}
+                            <a href="{% url 'account:login' %}?next={% url 'auction:auction-bid' object.pk %}"
+                               class="main-btn style-one">ثبت پیشنهاد<i
+                                    class="fa-regular fa-arrow-left"></i></a>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>

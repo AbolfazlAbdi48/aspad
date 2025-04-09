@@ -37,7 +37,7 @@
 {#                                </ul>#}
                             </div>
                             <h3><a href="{% url 'auction:auction-detail' auction.pk %}">مزایده اسب {{ auction.horse.name }}</a></h3>
-                            <span>{{ auction.get_start_price }} تومان</span>
+                            <span>شروع از: {{ auction.get_start_price }} تومان</span>
                         </div>
                     </div>
                 {% endfor %}
