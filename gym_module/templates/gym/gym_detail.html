@@ -38,6 +38,10 @@
 
                         <ul class="list-unstyled">
                             <li>
+                                <i class="fas fa-location"></i>
+                                آدرس: {{ object.location }}
+                            </li>
+                            <li>
                                 <i class="fas fa-inbox"></i>
                                 ایمیل: {{ object.email }}
                             </li>
@@ -51,8 +55,27 @@
                             </li>
                         </ul>
 
-                        <a href="tel:{{ object.contact_number }}" class="main-btn style-one">برای رزرو تماس بگیرید<i
+                        <a href="#sessions" class="main-btn style-one">سانس های باشگاه<i
                                 class="fa-regular fa-arrow-left"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-5">
+                    <h5 class="text-center" id="sessions">سانس های باشگاه</h5>
+                    <div class="row">
+                        {% for session in object.sessions.all %}
+                            <div class="col-md-6 col-12 my-2">
+                                <div class="border rounded p-3 d-flex justify-content-between">
+                                    <p class="fw-bold">سانس: {{ session.session_info }}</p>
+                                    <div>
+                                        <a href="{% url 'gym:reserve-session' object.pk %}"
+                                           class="btn btn-warning btn-sm mt-1">رزرو آنلاین</a>
+                                        <a href="tel:{{ object.contact_number }}" class="btn btn-warning btn-sm mt-1">تماس</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
                     </div>
                 </div>
             </div>

@@ -62,3 +62,33 @@ class Gym(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class GymSession(models.Model):
+    gym = models.ForeignKey(
+        'Gym',
+        on_delete=models.CASCADE,
+        related_name='sessions',
+        verbose_name=_("باشگاه مربوطه")
+    )
+    session_info = models.CharField(
+        max_length=255,
+        verbose_name=_("اطلاعات سانس (روز، تاریخ، ساعت)")
+    )
+    reserved_by = models.ManyToManyField(
+        User,
+        blank=True,
+        related_name='reserved_sessions',
+        verbose_name=_("رزرو شده توسط")
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_("تاریخ ایجاد")
+    )
+
+    class Meta:
+        verbose_name = _("سانس باشگاه")
+        verbose_name_plural = _("سانس‌های باشگاه")
+
+    def __str__(self):
+        return f"{self.gym.name} - {self.session_info}"

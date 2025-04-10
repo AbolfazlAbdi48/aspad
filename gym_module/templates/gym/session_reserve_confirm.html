@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+{% block title %}
+    اسپاد | رزرو باشگاه
+{% endblock %}
+
+{% block main %}
+    <div class="container my-5">
+        {% if reserved %}
+            <div class="alert alert-success">
+                شما قبلا این سانس را رزرو کرده اید. به زودی با شما تماس میگیریم.
+            </div>
+        {% endif %}
+
+        <h2>تأیید رزرو سانس</h2>
+        <p>آیا مطمئن هستید که می‌خواهید سانس زیر را رزرو کنید؟</p>
+
+        <div class="card p-3 my-3">
+            <strong>باشگاه:</strong> {{ session.gym.name }} <br>
+            <strong>سانس:</strong> {{ session.session_info }}
+        </div>
+
+        {% if not reserved %}
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning">رزرو</button>
+                <a href="{% url 'gym:gym-detail' session.gym.pk %}" class="btn btn-secondary">انصراف</a>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
