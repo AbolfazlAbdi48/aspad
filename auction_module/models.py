@@ -16,11 +16,11 @@ class Auction(models.Model):
     ]
 
     horse = models.ForeignKey(Horse, null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('اسب'))
-    horse_name = models.CharField(max_length=255, verbose_name=_('نام'))
-    horse_age = models.IntegerField(verbose_name=_('سن'))
-    horse_breed = models.CharField(max_length=255, verbose_name=_('نژاد'))
-    horse_description = models.TextField(verbose_name=_('توضیحات'))
-    horse_image = models.ImageField(upload_to='horses/', verbose_name=_('عکس'))
+    horse_name = models.CharField(null=True, max_length=255, verbose_name=_('نام اسب'))
+    horse_age = models.IntegerField(null=True, verbose_name=_('سن'))
+    horse_breed = models.CharField(null=True, max_length=255, verbose_name=_('نژاد اسب'))
+    horse_description = models.TextField(null=True, verbose_name=_('درباره اسب'))
+    horse_image = models.ImageField(null=True, upload_to='horses/', verbose_name=_('عکس اسب'))
     start_price = models.DecimalField(max_digits=10, decimal_places=0, verbose_name=_('حداقل مبلغ مزایده'))
     start_time = models.DateTimeField(verbose_name=_('شروع مزایده'))
     end_time = models.DateTimeField(verbose_name=_('پایان مزایده'))

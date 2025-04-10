@@ -13,11 +13,11 @@
                     {% include 'account/components/navbar.html' %}
                 </div>
                 <div class="col-md-8 col-12">
-                    <h5>کارشناس اسب {{ object.horse.name }}</h5>
+                    <h5>کارشناس اسب {{ object.horse_name }}</h5>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <img src="{{ object.horse.image.url }}" class="card-img-top" alt="...">
+                                <img src="{{ object.horse_image.url }}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">وضعیت کارشناسی: {{ object.get_status_display }}</h5>
                                     <p class="card-text">کامنت شما: {{ object.comment }}</p>
@@ -36,9 +36,27 @@
                                         <div class="card-body">
                                             <p class="card-text">توضیحات کارشناسی: {{ report.report_text }}</p>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">امتیاز اصالت: {{ report.authenticity_score }}</li>
-                                                <li class="list-group-item">امتیاز سلامتی: {{ report.health_score }}</li>
-                                                <li class="list-group-item">امتیاز سرعت: {{ report.speed_score }}</li>
+                                                <li class="list-group-item">
+                                                    امتیاز اصالت: {{ report.authenticity_score }} از 100
+                                                    <div class="progress" role="progressbar" aria-label="Warning example"
+                                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar bg-warning" style="width: {{ report.authenticity_score }}%"></div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                 امتیاز سلامتی: {{ report.health_score }} از 100
+                                                    <div class="progress" role="progressbar" aria-label="Warning example"
+                                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar bg-warning" style="width: {{ report.health_score }}%"></div>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                 امتیاز سرعت: {{ report.speed_score }} از 100
+                                                    <div class="progress" role="progressbar" aria-label="Warning example"
+                                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar bg-warning" style="width: {{ report.speed_score }}%"></div>
+                                                    </div>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>

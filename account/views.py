@@ -125,7 +125,7 @@ class EvaluationRequestListView(LoginRequiredMixin, ListView):
     template_name = 'account/evaluation_request_list.html'
 
     def get_queryset(self):
-        return HorseEvaluationRequest.objects.filter(requested_by=self.request.user)
+        return HorseEvaluationRequest.objects.filter(requested_by=self.request.user).order_by("-created_at")
 
 
 class EvaluationRequestDetailView(LoginRequiredMixin, DetailView):
@@ -135,7 +135,7 @@ class EvaluationRequestDetailView(LoginRequiredMixin, DetailView):
 
 class EvaluationRequestCreateView(LoginRequiredMixin, CreateView):
     model = HorseEvaluationRequest
-    fields = ['horse', 'comment']
+    fields = ['horse_name', 'horse_age', 'horse_breed', 'horse_image', 'comment']
     template_name = 'account/evaluation_request_create.html'
     success_url = reverse_lazy('account:profile-evaluation-requests')
 
