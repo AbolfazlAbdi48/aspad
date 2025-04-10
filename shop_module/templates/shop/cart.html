@@ -1,0 +1,99 @@
+{% extends 'base/base.html' %}
+{% load humanize %}
+
+{% block title %}
+    اسپاد | سبد خرید
+{% endblock %}
+
+{% block main %}
+    <div class="cart-area pt-100 pb-75">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="d-flex justify-content-between cart-title">
+                        <h3>سبد خرید شما</h3>
+                    </div>
+                    {% for item in cart %}
+                        <div class="d-sm-flex align-items-center cart-single-item">
+                            <div class="flex-shrink-0"><img src="{{ item.product.image.url }}" class="img-fluid"
+                                                            width="200" height="200" alt="cart"></div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center p-4">
+                                    <div>
+                                        <h3>{{ item.product.name }}</h3>
+                                        <div class="input-counter d-flex justify-content-between">
+                                            <span class="minus-btn"><i class="fa-regular fa-minus"></i></span><input
+                                                type="text"
+                                                value="1"><span
+                                                class="plus-btn"><i class="fa-regular fa-plus"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <button class="close-btn removeCartItem" id="{{ item.product.id }}"><i
+                                                class="fa-regular fa-xmark fa-fw"></i></button>
+                                        <span class="d-block price">{{ item.total_price|intcomma:False }} تومان</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="cart-subtotal">
+                        <div class="d-flex justify-content-between mb-5">
+                            <h3>جمع کل سبد</h3>
+                            <h3 id="factorTotal">{{ cart.get_total_price|intcomma:False }} تومان</h3>
+                        </div>
+                        {#                        <span class="shipping">حمل دریایی</span>#}
+                        {#                        <div class="mb-4">#}
+                        {#                            <label class="radio-button-container">نرخ ثابت: 60.00 دلار<input type="radio" checked#}
+                        {#                                                                                             name="radio"><span#}
+                        {#                                    class="checkmark"></span></label><label class="radio-button-container">وانت محلی:#}
+                        {#                            80.00#}
+                        {#                            دلار<input type="radio" name="radio"><span class="checkmark"></span></label>#}
+                        {#                        </div>#}
+                        {#                        <p>گزینه های حمل و نقل در حین تسویه حساب به روز می شود.</p>#}
+                        {#                        <span class="change">تغییر آدرس</span>#}
+                        {#                        <div class="d-flex justify-content-between mb-4">#}
+                        {#                            <h3>جمع</h3>#}
+                        {#                            <h3>$290.00</h3>#}
+                        {#                        </div>#}
+                        <a href="checkout.html" class="main-btn w-100 text-center">لطفا به درگاه پرداخت متصل شوید</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js_code %}
+    <script>
+        $(document).ready(function () {
+            $('.removeCartItem').click(function () {
+                console.log(111)
+                $.ajax({
+                    'url': `/shop/cart/remove/${$(this).attr('id')}`,
+                    type: 'DELETE',
+                    dayaType: 'json',
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    success: (data) => {
+                        if (data['status'] === 'deleted') {
+                            $(this).parent().parent().parent().parent().hide()
+                            $('#factorTotal').text(parseInt(data['total_price']).toLocaleString())
+                            alert('محصول از سبد خرید شما حذف شد')
+                        } else if (data['status'] === 'failed') {
+                            alert('حذف محصول با خطا مواجه شد')
+                        }
+                    },
+                    error: (data) => {
+                        alert('ارتباط با سرور برقرار نشد.')
+                    }
+                })
+            })
+        })
+    </script>
+{% endblock %}

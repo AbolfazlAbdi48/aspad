@@ -20,6 +20,9 @@
     </div>
     <div class="about-area ptb-100">
         <div class="container">
+        <div class="alert alert-success">
+                <a href="{% url 'shop:cart' %}" class="">مشاهده سبد خرید</a>
+            </div>
             <div class="row">
                 <div class="col-12">
                     {% for message in messages %}
@@ -35,11 +38,19 @@
                 <div class="col-lg-6">
                     <div class="about-content-three">
                         <h2 class="">{{ object.name }}</h2>
-                        <p class="text-success fw-bold h5">{{ object.price|intcomma:False }} تومان</p>
+                        <p class="text-success fw-bold h6">
+                            <i class="fas fa-location"></i>
+                            فروشنده: {{ object.shop.name }}
+                        </p>
+                        <p class="text-success fw-bold h6">
+                            <i class="fas fa-money-bill"></i>
+                            {{ object.price|intcomma:False }} تومان</p>
                         <p>{{ object.description|safe }}</p>
 
-                        <a href="tel:1234" class="main-btn style-one">برای خرید تماس بگیرید<i
-                                class="fa-regular fa-arrow-left"></i></a>
+                        <button id="cartAdd" class="main-btn style-one">افزودن
+                            به سبد
+                            خرید</button>
+                        <a href="tel:{{ product.shop.contact_number }}" class="main-btn style-three">تماس با فروشنده</a>
                     </div>
                 </div>
             </div>
@@ -49,19 +60,42 @@
     <div class="container">
         <div>
             <div class="alert alert-secondary">
-                مکمل رشد کره اسب
-
-                نوع بسته بندی: سطل
-
-                وزن/حجم: 5 کیلوگرم
-
-                شکل فیزیکی محصول: پلت
-
-                حیوانات هدف: اسب
-
-                گروه: مادیان شیرده، کره در حال رشد، مادیان باردار
+                {{ object.description|safe }}
             </div>
         </div>
     </div>
 
+{% endblock %}
+
+{% block js_code %}
+    <script>
+        $(document).ready(function () {
+            $('#cartAdd').click(function () {
+                $.ajax({
+                    'url': `/shop/cart/add/${'{{object.id}}'}`,
+                    type: "POST",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        payload: {
+                            'count': 1
+                        }
+                    }),
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    success: (data) => {
+                        if (data['status'] === 'added') {
+                            alert('محصول به سبد خرید اضافه شد')
+                        } else if (data['status'] === 'failed') {
+                            alert('مقدار درخواستی بیش از حد مجاز میباشد.')
+                        }
+                    },
+                    error: (data) => {
+                        alert("محصول به سبد اضافه نشد!")
+                    }
+                })
+            })
+        })
+    </script>
 {% endblock %}

@@ -10,7 +10,7 @@
     <div class="page-banner-area bg-black bg-img" data-background="{% static 'template/images/banner-bg-shape2.png' %}">
         <div class="container mw-1680">
             <div class="page-banner-content">
-                <h2>دارو مکمل و تجهیزات عکس</h2>
+                <h2>دارو، مکمل و تجهیزات اسب</h2>
                 <ul class="ps-0 mb-0 list-unstyled justify-content-center page-breadcrumb d-flex flex-wrap gap-4">
                     <li><a href="{% url 'core:home' %}">صفحه اصلی</a></li>
                     <li><span class="active">فروشگاه</span></li>
@@ -21,6 +21,9 @@
 
     <div class="products-area ptb-100">
         <div class="container">
+            <div class="alert alert-success">
+                <a href="{% url 'shop:cart' %}" class="">مشاهده سبد خرید</a>
+            </div>
             <div class="row justify-content-center" id="Container">
                 {% for product in object_list %}
                     <div class="col-lg-3 col-sm-6 mix monitor monitor mobile">
@@ -37,7 +40,9 @@
                                 {#                                    </li>#}
                                 {#                                </ul>#}
                             </div>
-                            <h3><a href="{% url 'shop:product-detail' product.pk %}">{{ product.name }}</a></h3>
+                            <h3><a href="{% url 'shop:product-detail' product.pk %}">{{ product.name }}
+                                <small> - {{ product.shop.name }}</small>
+                            </a></h3>
                             <span>
                                 {{ product.price|intcomma:False }} تومان
                             </span>

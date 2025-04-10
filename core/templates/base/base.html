@@ -57,13 +57,17 @@
                             <a href="{% url 'gym:gym-list' %}" class="nav-link dropdown-toggle">رزرو باشگاه</a>
                         </li>
                         <li class="nav-item">
+                            <a href="{% url 'shop:product-list' %}" class="nav-link dropdown-toggle">فروشگاه</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{% url 'account:profile' %}" class="nav-link dropdown-toggle">حساب کاربری</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'shop:cart' %}" class="nav-link dropdown-toggle">سبد خرید</a>
                         </li>
                     </ul>
                     <div class="nav-right-options d-flex align-items-center">
                         <ul class="social-link ps-0 mb-0 list-unstyled">
-                            <li><a href="https://facebook.com/" target="_blank"><i
-                                    class="fa-brands fa-facebook-f"></i></a></li>
                             <li><a href="https://twitter.com/" target="_blank"><i
                                     class="fa-brands fa-twitter"></i></a></li>
                             <li><a href="https://instagram.com/" target="_blank"><i
@@ -94,9 +98,9 @@
     <div class="container">
         <div class="row" data-cues="slideInUp">
             <div class="col-12">
-{#                <div class="footer-single-item">#}
-                    <h5 class="text-center text-white">اسپاد - 2025</h5>
-{#                </div>#}
+                {#                <div class="footer-single-item">#}
+                <h5 class="text-center text-white">اسپاد - 2025</h5>
+                {#                </div>#}
             </div>
         </div>
     </div>
@@ -117,6 +121,24 @@
 <script src="{% static 'template/js/mixitup.min.js' %}"></script>
 <script src="{% static 'template/js/smoothscroll.min.js' %}"></script>
 <script src="{% static 'template/js/custom.js' %}"></script>
+<script>
+    // get csrf-token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
 {% block js_code %}
 
 {% endblock %}
