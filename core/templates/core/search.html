@@ -1,0 +1,177 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+    اسپاد | جستجو
+{% endblock %}
+
+{% block main %}
+    <div class="page-banner-area bg-black bg-img" data-background="{% static 'template/images/banner-bg-shape2.png' %}">
+        <div class="container mw-1680">
+            <div class="page-banner-content">
+                <h2>جستجو در اسپاد</h2>
+            </div>
+        </div>
+    </div>
+    {% if auction_search %}
+        <div class="products-area ptb-100">
+            <div class="container">
+                <div class="row justify-content-center" id="Container">
+                    <h4 class="text-center">جستجو مزایده</h4>
+                    <hr>
+                    {% for auction in auction_search %}
+                        <div class="col-lg-3 col-sm-6 mix monitor monitor mobile">
+                            <div class="product-single-item">
+                                <div class="product-img">
+                                    <a href="{% url 'auction:auction-detail' auction.pk %}" class="d-block"><img
+                                            src="{{ auction.horse_image.url }}"
+                                            alt="product"></a>
+                                    {#                                <ul class="ps-0 mb-0 list-unstyled social-link">#}
+                                    {#                                    <li><a href="product-details.html"><i class="fa-regular fa-heart"></i></a></li>#}
+                                    {#                                    <li><a href="product-details.html"><i class="fa-regular fa-eye"></i></a></li>#}
+                                    {#                                    <li><a href="product-details.html"><i#}
+                                    {#                                            class="fa-sharp fa-solid fa-arrows-rotate"></i></a>#}
+                                    {#                                    </li>#}
+                                    {#                                </ul>#}
+                                </div>
+                                <h3><a href="{% url 'auction:auction-detail' auction.pk %}">مزایده
+                                    اسب {{ auction.horse_name }}</a></h3>
+                                <span>شروع از: {{ auction.get_start_price }} تومان</span>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="alert alert-secondary">
+                            جستجو یافت نشد.
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if gym_search %}
+        <div class="products-area ptb-100">
+            <div class="container">
+                <div class="row justify-content-center" id="Container">
+                    <div class="col-12 mb-3">
+                        <h4 class="text-center">جستجو باشگاه</h4>
+                        <hr>
+                    </div>
+                    {% for gym in gym_search %}
+                        <div class="col-lg-3 col-sm-6 mix monitor monitor mobile">
+                            <div class="product-single-item">
+                                <div class="product-img">
+                                    <a href="{% url 'gym:gym-detail' gym.pk %}" class="d-block"><img
+                                            src="{{ gym.image.url }}"
+                                            alt="product"></a>
+                                    {#                                <ul class="ps-0 mb-0 list-unstyled social-link">#}
+                                    {#                                    <li><a href="product-details.html"><i class="fa-regular fa-heart"></i></a></li>#}
+                                    {#                                    <li><a href="product-details.html"><i class="fa-regular fa-eye"></i></a></li>#}
+                                    {#                                    <li><a href="product-details.html"><i#}
+                                    {#                                            class="fa-sharp fa-solid fa-arrows-rotate"></i></a>#}
+                                    {#                                    </li>#}
+                                    {#                                </ul>#}
+                                </div>
+                                <h3><a href="{% url 'gym:gym-detail' gym.pk %}">{{ gym.name }}</a></h3>
+                                <span>
+                                <i class="fas fa-location-dot"></i>
+                                {{ gym.location }}
+                            </span>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="alert alert-secondary">
+                            جستجو یافت نشد.
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if shop_search %}
+        <div class="products-area ptb-100">
+            <div class="container">
+                <div class="row justify-content-center" id="Container">
+                    <div class="col-12 mb-3">
+                        <h4 class="text-center">جستجو فروشگاه</h4>
+                        <hr>
+                    </div>
+                    {% for gym in shop_search %}
+                        <div class="col-lg-3 col-sm-6 mix monitor monitor mobile">
+                            <div class="product-single-item">
+                                <div class="product-img">
+                                    <a href="{% url 'gym:gym-detail' gym.pk %}" class="d-block"><img
+                                            src="{{ gym.image.url }}"
+                                            alt="product"></a>
+                                    {#                                <ul class="ps-0 mb-0 list-unstyled social-link">#}
+                                    {#                                    <li><a href="product-details.html"><i class="fa-regular fa-heart"></i></a></li>#}
+                                    {#                                    <li><a href="product-details.html"><i class="fa-regular fa-eye"></i></a></li>#}
+                                    {#                                    <li><a href="product-details.html"><i#}
+                                    {#                                            class="fa-sharp fa-solid fa-arrows-rotate"></i></a>#}
+                                    {#                                    </li>#}
+                                    {#                                </ul>#}
+                                </div>
+                                <h3><a href="{% url 'gym:gym-detail' gym.pk %}">{{ gym.name }}</a></h3>
+                                <span>
+                                <i class="fas fa-location-dot"></i>
+                                {{ gym.location }}
+                            </span>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="alert alert-secondary">
+                            جستجو یافت نشد.
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if product_search %}
+        <div class="products-area ptb-100">
+            <div class="container">
+                <div class="row justify-content-center" id="Container">
+                    <div class="col-12 mb-3">
+                        <h4 class="text-center">جستجو محصولات</h4>
+                        <hr>
+                    </div>
+                    {% for product in product_search %}
+                        <div class="col-lg-3 col-sm-6 mix monitor monitor mobile">
+                            <div class="product-single-item">
+                                <div class="product-img">
+                                    <a href="{% url 'shop:product-detail' product.pk %}" class="d-block"><img
+                                            src="{{ product.image.url }}"
+                                            alt="product"></a>
+                                    {#                                <ul class="ps-0 mb-0 list-unstyled social-link">#}
+                                    {#                                    <li><a href="product-details.html"><i class="fa-regular fa-heart"></i></a></li>#}
+                                    {#                                    <li><a href="product-details.html"><i class="fa-regular fa-eye"></i></a></li>#}
+                                    {#                                    <li><a href="product-details.html"><i#}
+                                    {#                                            class="fa-sharp fa-solid fa-arrows-rotate"></i></a>#}
+                                    {#                                    </li>#}
+                                    {#                                </ul>#}
+                                </div>
+                                <h3><a href="{% url 'shop:product-detail' product.pk %}">{{ product.name }}
+                                    <small> - {{ product.shop.name }}</small>
+                                </a></h3>
+                                <span>
+                                {{ product.price|intcomma:False }} تومان
+                            </span>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="alert alert-secondary">
+                            جستجو یافت نشد.
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
