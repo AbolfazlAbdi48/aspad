@@ -60,11 +60,17 @@
                             <a href="{% url 'shop:product-list' %}" class="nav-link dropdown-toggle">فروشگاه</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'account:profile' %}" class="nav-link dropdown-toggle">حساب کاربری</a>
-                        </li>
-                        <li class="nav-item">
                             <a href="{% url 'shop:cart' %}" class="nav-link dropdown-toggle">سبد خرید</a>
                         </li>
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a href="{% url 'account:profile' %}" class="nav-link dropdown-toggle">حساب کاربری</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a href="{% url 'account:login' %}" class="nav-link dropdown-toggle">ورود به اسپاد</a>
+                            </li>
+                        {% endif %}
                     </ul>
                     <div class="nav-right-options d-flex align-items-center">
                         <ul class="social-link ps-0 mb-0 list-unstyled">

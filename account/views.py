@@ -12,6 +12,7 @@ from account.forms import PhoneNumberForm, RegisterForm, PasswordVerifyForm, Auc
 from account.models import User, UserSkillProfile
 from auction_module.models import Auction
 from evaluation_module.models import HorseEvaluationRequest
+from extentions.data_matching import find_matches_for_user
 from extentions.utils import get_client_ip
 
 
@@ -69,7 +70,7 @@ def verify_pass_view(request):
 
             if next_url:
                 return redirect(next_url)
-            return redirect('core:home')
+            return redirect('account:profile-match')
         else:
             messages.error(request, 'رمز عبور اشتباه وارد شده است.')
 
@@ -112,7 +113,7 @@ def complete_register_view(request):
         cache.delete(f"{ip}-for-authentication")
         if next_url:
             return redirect(next_url)
-        return redirect('core:home')
+        return redirect('account:profile-match')
 
     context = {
         'form': form
@@ -128,6 +129,18 @@ def custom_logout_view(request):
 @login_required
 def profile_view(request):
     return render(request, "account/profile.html")
+
+
+@login_required()
+def profile_match_view(request):
+    """
+    data matching view.
+    """
+    matches = find_matches_for_user(request.user)
+    context = {
+        'matches': matches
+    }
+    return render(request, "account/profile_match.html", context)
 
 
 class EvaluationRequestListView(LoginRequiredMixin, ListView):

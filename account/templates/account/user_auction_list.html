@@ -28,7 +28,7 @@
                                         مزایده {{ object.horse_name }}
                                     </div>
                                     <div class="card-body">
-                                        <img src="{{ object.horse_image.url }}" alt="" class="imf-fluid mb-3">
+                                        <img src="{{ object.horse_image.url }}" alt="" class="img-fluid mb-3">
                                         <p class="mb-3">شروع از: {{ object.get_start_price }} تومان</p>
                                         <a href="{% url 'auction:auction-detail' object.pk %}"
                                            class="btn btn-outline-primary">مشاهده</a>

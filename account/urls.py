@@ -10,12 +10,13 @@ from .views import (
     EvaluationRequestCreateView,
     UserAuctionListView,
     UserAuctionCreateView,
-    UserAuctionUpdateView,
+    UserAuctionUpdateView, profile_match_view,
 )
 
 app_name = "account"
 urlpatterns = [
     path("profile/", profile_view, name="profile"),
+    path("profile/match/", profile_match_view, name="profile-match"),
     path("profile/evaluations/", EvaluationRequestListView.as_view(), name="profile-evaluation-requests"),
     path("profile/evaluations/create", EvaluationRequestCreateView.as_view(), name="profile-evaluation-Create"),
     path("profile/evaluations/<int:pk>", EvaluationRequestDetailView.as_view(), name="profile-evaluation-detail"),
