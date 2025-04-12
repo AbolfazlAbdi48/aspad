@@ -1,0 +1,69 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    اسپاد | وبلاگ
+{% endblock %}
+
+{% block main %}
+    <div class="page-banner-area bg-black bg-img" data-background="{% static 'template/images/banner-bg-shape2.png' %}">
+        <div class="container mw-1680">
+            <div class="page-banner-content">
+                <h2>وبلاگ اسپاد</h2>
+                <ul class="ps-0 mb-0 list-unstyled justify-content-center page-breadcrumb d-flex flex-wrap gap-4">
+                    <li><a href="{% url 'core:home' %}">صفحه اصلی</a></li>
+                    <li><span class="active">وبلاگ</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="blog-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-12">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <h4>مقالات اسپاد</h4>
+                        </div>
+                        {% for article in object_list %}
+                            <div class="col-xl-6 col-md-12">
+                                <div class="blog-single-item style-two">
+                                    <a href="{% url 'blog:blog-detail' article.pk article.get_replaced_title %}"
+                                       class="d-block blog-img"><img src="{{ article.image.url }}"
+                                                                     alt="blog"></a>
+                                    <ul class="ps-0 list-unstyled date">
+                                        <li><span>{{ article.published_jalali_str }}</span></li>
+                                    </ul>
+                                    <h3>
+                                        <a href="{% url 'blog:blog-detail' article.pk article.get_replaced_title %}">{{ article.title }}</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-4 col-12">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <h4>دنیای اینترنت</h4>
+                        </div>
+                        <ul>
+                            {% for article in zoomit_articles %}
+                                <li>
+                                    <a href="{{ article.link }}" class="">{{ article.title }}</a>
+                                </li>
+                            {% endfor %}
+                            {% for article in digiato_articles %}
+                                <li>
+                                    <a href="{{ article.link }}" class="">{{ article.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

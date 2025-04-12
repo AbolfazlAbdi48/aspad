@@ -16,7 +16,8 @@
                     <form action="/search/" method="get">
                         <div class="row mt-4">
                             <div class="col-6">
-                                <input type="text" class="form-control text-white rounded-5" placeholder="جستجو در اسپاد" name="search">
+                                <input type="text" class="form-control text-white rounded-5"
+                                       placeholder="جستجو در اسپاد" name="search">
                             </div>
                             <div class="col-2">
                                 <button type="submit" class="main-btn style-two">جستجو</button>
@@ -262,6 +263,35 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+    <div class="blog-area ptb-100">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-12 mb-3">
+                    <h3 class="text-center">مقالات اسپاد</h3>
+                </div>
+                {% for article in blog %}
+                    <div class="col-xl-4 col-md-6">
+                        <div class="blog-single-item style-two">
+                            <a href="{% url 'blog:blog-detail' article.pk article.get_replaced_title %}"
+                               class="d-block blog-img"><img src="{{ article.image.url }}"
+                                                             alt="blog"></a>
+                            <ul class="ps-0 list-unstyled date">
+                                <li><span>{{ article.published_jalali_str }}</span></li>
+                            </ul>
+                            <h3>
+                                <a href="{% url 'blog:blog-detail' article.pk article.get_replaced_title %}">{{ article.title }}</a>
+                            </h3>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="col-12 text-center">
+                    <a href="{% url 'blog:blog-list' %}" class="main-btn style-one">وبلاگ اسپاد</a>
+                </div>
+
+            </div>
         </div>
     </div>
 {% endblock %}

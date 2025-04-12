@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    اسپاد | {{ object.title }}
+{% endblock %}
+
+{% block main %}
+    <div class="page-banner-area bg-black bg-img" data-background="{% static 'template/images/banner-bg-shape2.png' %}">
+        <div class="container mw-1680">
+            <div class="page-banner-content">
+                <h2>{{ object.title }}</h2>
+                <ul class="ps-0 mb-0 list-unstyled justify-content-center page-breadcrumb d-flex flex-wrap gap-4">
+                    <li><a href="{% url 'core:home' %}">صفحه اصلی</a></li>
+                    <li><span class="active">وبلاگ</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="blog-details-area pt-100 pb-100">
+        <div class="container">
+            <div class="blog-details-content">
+                <div class="blog-details-img"><img src="{{ object.image.url }}" alt="blog-details-img">
+                </div>
+                <h2>{{ object.title }}</h2>
+                <p>{{ object.description|safe }}</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

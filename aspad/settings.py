@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "evaluation_module",
     "gym_module",
     "shop_module",
+    "blog_module",
 ]
 
 MIDDLEWARE = [

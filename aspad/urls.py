@@ -26,6 +26,7 @@ urlpatterns = [
     path("auction/", include("auction_module.urls")),
     path("gym/", include("gym_module.urls")),
     path("shop/", include("shop_module.urls")),
+    path("blog/", include("blog_module.urls")),
     path("admin/", admin.site.urls),
 ]
 

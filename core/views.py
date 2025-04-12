@@ -1,7 +1,9 @@
 from django.db.models import Q
 from django.shortcuts import render
+from django.utils import timezone
 
 from auction_module.models import Auction
+from blog_module.models import Article
 from gym_module.models import Gym
 from shop_module.models import Shop, Product
 
@@ -9,9 +11,11 @@ from shop_module.models import Shop, Product
 # Create your views here.
 def home(request):
     auctions = Auction.objects.filter()[:4]
+    blog = Article.objects.filter(status='p', publish_time__lte=timezone.now())[:3]
 
     context = {
-        "auctions": auctions
+        "auctions": auctions,
+        "blog": blog
     }
     return render(request, "core/home.html", context)
 
