@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from account.forms import PhoneNumberForm, RegisterForm, PasswordVerifyForm, AuctionForm
-from account.models import User
+from account.models import User, UserSkillProfile
 from auction_module.models import Auction
 from evaluation_module.models import HorseEvaluationRequest
 from extentions.utils import get_client_ip
@@ -26,15 +26,17 @@ def login_view(request):
 
     if form.is_valid():
         phone_number = form.cleaned_data.get('phone_number')
-        user_exist: bool = User.objects.filter(username=phone_number).exists()
+        user_exist = User.objects.filter(username=phone_number).first()
 
         ip = get_client_ip(request)
         cache.set(f"{ip}-for-authentication", phone_number, 1000)
 
         if user_exist:
-            return redirect("account:verify-password")
+            if user_exist.is_active:
+                return redirect("account:verify-password")
+            return redirect("account:login-complete")
         else:
-            User.objects.create_user(username=phone_number)
+            User.objects.create_user(username=phone_number, is_active=False)
             return redirect("account:login-complete")
 
     context = {
@@ -95,7 +97,15 @@ def complete_register_view(request):
         user.first_name = cd.get('first_name')
         user.last_name = cd.get('last_name')
         user.set_password(cd.get('password'))
+        user.is_active = True
         user.save()
+
+        profile = UserSkillProfile.objects.create(
+            user=user,
+            role=form.cleaned_data.get('user_type')
+        )
+        profile.offers.set(form.cleaned_data.get('offers'))
+        profile.demands.set(form.cleaned_data.get('demands'))
 
         login(request, user)
         messages.success(request, message="به اسپاد خوش آمدید!")

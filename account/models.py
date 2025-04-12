@@ -24,11 +24,11 @@ class Skill(models.Model):
 
 class UserSkillProfile(models.Model):
     ROLE_CHOICES = [
+        ('user', 'هیچکدام'),
         ('coach', 'مربی'),
         ('vet', 'دامپزشک'),
-        ('gym_owner', 'باشگاه‌دار'),
-        ('shop_owner', 'فروشگاه‌دار'),
-        ('user', 'کاربر عادی'),
+        ('gym_owner', 'باشگاه/استبل'),
+        ('shop_owner', 'فروشنده/فروشگاه'),
         ('expert', 'کارشناس'),
     ]
 

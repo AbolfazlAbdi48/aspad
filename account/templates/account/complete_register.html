@@ -13,10 +13,11 @@
                 <div class="col-lg-6">
                     <div class="authentication-form">
                         <ul class="ps-0 list-unstyled d-flex authentication-nav">
-                            <li><a href="#" class="active">ایجاد حساب کاربری</a></li>
+                            <li><a href="#" class="active">لطفا اطلاعات خود را وارد کنید</a></li>
                         </ul>
                         <form method="post" autocomplete="off">
-                        {% csrf_token %}
+                            {% csrf_token %}
+                        <h6 class="mb-3">شما در سایت عضو نیستید، لطفا فرم زیر را پر کنید</h6>
 
                             <div class="row">
                                 <div class="col-12 mt-2">
@@ -64,10 +65,59 @@
                                         {% endif %}
                                     </ul>
                                 </div>
+
+                                <div class="col-12 mt-2">
+                                    <label for="{{ form.user_type.id_for_label }}"
+                                           class="font-vazir-bold-fd">
+                                        {{ form.user_type.label }}*
+                                    </label>
+                                    {{ form.user_type }}
+                                    <ul class="text-secondary mt-1">
+
+                                        {% if form.user_type.errors %}
+                                            {% for error in form.user_type.errors %}
+                                                <li class="text-danger">{{ error }}</li>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </ul>
+                                </div>
+
+                                <div class="col-12 mt-2">
+                                    <label for="{{ form.offers.id_for_label }}"
+                                           class="font-vazir-bold-fd">
+                                        {{ form.offers.label }}*
+                                    </label>
+                                    {{ form.offers }}
+                                    <ul class="text-secondary mt-1">
+
+                                        {% if form.offers.errors %}
+                                            {% for error in form.offers.errors %}
+                                                <li class="text-danger">{{ error }}</li>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </ul>
+                                </div>
+
+                                <div class="col-12 mt-2">
+                                    <label for="{{ form.demands.id_for_label }}"
+                                           class="font-vazir-bold-fd">
+                                        {{ form.demands.label }}*
+                                    </label>
+                                    {{ form.demands }}
+                                    <ul class="text-secondary mt-1">
+
+                                        {% if form.demands.errors %}
+                                            {% for error in form.demands.errors %}
+                                                <li class="text-danger">{{ error }}</li>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </ul>
+                                </div>
+
                             </div>
 
                             <div class="form-group mb-4">
-                                <button type="submit" class="main-btn">ارسال و ورود</button>
+                                <button type="submit" class="main-btn">ورود به اسپاد</button>
                             </div>
                         </form>
                     </div>

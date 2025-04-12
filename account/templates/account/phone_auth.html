@@ -13,15 +13,16 @@
                 <div class="col-lg-6">
                     <div class="authentication-form">
                         <ul class="ps-0 list-unstyled d-flex authentication-nav">
-                            <li><a href="sign-in.html" class="active">ورود به حساب کاربری</a></li>
+                            <li><a href="sign-in.html" class="active">لطفا وارد حساب خود شوید</a></li>
                         </ul>
                         <form method="post">
+                        <h6>شماره موبایل خود را وارد کنید</h6>
                         {% csrf_token %}
                             <div class="form-group mb-4">
-                                <label for="{{ form.phone_number.id_for_label }}"
-                                       class="font-vazir-bold-fd">
-                                    {{ form.phone_number.label }}
-                                </label>
+{#                                <label for="{{ form.phone_number.id_for_label }}"#}
+{#                                       class="font-vazir-bold-fd">#}
+{#                                    {{ form.phone_number.label }}#}
+{#                                </label>#}
                                 {{ form.phone_number }}
                                 <ul class="text-secondary mt-1">
                                     {% if not form.phone_number.errors and not messages %}

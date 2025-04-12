@@ -4,6 +4,7 @@ from django.contrib.auth import password_validation
 from django.utils.translation import gettext_lazy as _
 
 from auction_module.models import Auction
+from .models import UserSkillProfile, Skill
 
 
 class PhoneNumberForm(forms.Form):
@@ -55,6 +56,25 @@ class RegisterForm(forms.Form):
         }),
         help_text=password_validation.password_validators_help_text_html(),
         label='رمزعبور'
+    )
+    user_type = forms.ChoiceField(
+        choices=UserSkillProfile.ROLE_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label='نقش شما در اسپاد چیست؟'
+    )
+
+    offers = forms.ModelMultipleChoiceField(
+        queryset=Skill.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        label='چه خدمات و مهارت هایی ارائه میدهید؟',
+        required=True
+    )
+
+    demands = forms.ModelMultipleChoiceField(
+        queryset=Skill.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        label='به چه خدماتی نیاز دارید؟',
+        required=True
     )
 
 
