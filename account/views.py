@@ -14,6 +14,8 @@ from auction_module.models import Auction
 from evaluation_module.models import HorseEvaluationRequest
 from extentions.data_matching import find_matches_for_user
 from extentions.utils import get_client_ip
+from gym_module.forms import GymForm, GymSessionForm
+from gym_module.models import Gym, GymSession
 
 
 # Create your views here.
@@ -195,3 +197,64 @@ class UserAuctionUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_queryset(self):
         return self.model.objects.filter(created_by=self.request.user)
+
+
+@login_required
+def gym_profile_view(request):
+    user = request.user
+    if user.skill_profile.role != 'gym_owner':
+        return redirect('account:profile')
+
+    gym = Gym.objects.filter(owner=user).first()
+
+    if request.method == 'POST':
+        form = GymForm(request.POST, request.FILES, instance=gym)
+        if form.is_valid():
+            gym = form.save(commit=False)
+            gym.owner = user
+            gym.save()
+            return redirect('account:profile')
+    else:
+        form = GymForm(instance=gym)
+
+    context = {
+        'form': form,
+        'is_edit': bool(gym)
+    }
+    return render(request, 'account/gym_profile_edit.html', context)
+
+
+def gym_reserve_list_view(request):
+    gym = get_object_or_404(Gym, owner=request.user)
+
+    context = {
+        'reserves': gym.sessions.all()
+    }
+    return render(request, "account/gym_reserves.html", context)
+
+
+@login_required
+def create_gym_session_view(request):
+    user = request.user
+    if user.skill_profile.role != 'gym_owner':
+        return redirect('account:profile')
+
+    gym = Gym.objects.filter(owner=user).first()
+    if not gym:
+        return redirect('account:profile-gym-form')
+
+    if request.method == 'POST':
+        form = GymSessionForm(request.POST)
+        if form.is_valid():
+            session = form.save(commit=False)
+            session.gym = gym
+            session.save()
+            messages.success(request, "سانس با موفقیت ایجاد شد.")
+            return redirect('account:profile')
+    else:
+        form = GymSessionForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'account/gym_create_session.html', context)

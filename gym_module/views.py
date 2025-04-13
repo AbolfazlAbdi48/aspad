@@ -19,7 +19,7 @@ class GymDetailView(DetailView):
 
 @login_required
 def reserve_session_view(request, pk):
-    session = get_object_or_404(GymSession, pk=pk)
+    session = get_object_or_404(GymSession, id=pk)
     reserved = False
     if request.user in session.reserved_by.all():
         reserved = True

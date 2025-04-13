@@ -10,7 +10,9 @@ from .views import (
     EvaluationRequestCreateView,
     UserAuctionListView,
     UserAuctionCreateView,
-    UserAuctionUpdateView, profile_match_view,
+    UserAuctionUpdateView,
+    profile_match_view,
+    gym_profile_view, gym_reserve_list_view, create_gym_session_view,
 )
 
 app_name = "account"
@@ -23,6 +25,9 @@ urlpatterns = [
     path("profile/auctions/", UserAuctionListView.as_view(), name="profile-auction-list"),
     path("profile/auctions/create", UserAuctionCreateView.as_view(), name="profile-auction-create"),
     path("profile/auctions/update/<int:pk>", UserAuctionUpdateView.as_view(), name="profile-auction-update"),
+    path("profile/gym/form", gym_profile_view, name="profile-gym-form"),
+    path("profile/gym/reserves", gym_reserve_list_view, name="profile-gym-reserves"),
+    path("profile/gym/session", create_gym_session_view, name="profile-gym-session-create"),
 
     path("logout/", custom_logout_view, name="logout"),
     path("login/", login_view, name="login"),

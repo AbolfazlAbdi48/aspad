@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+    اسپاد | ایجاد سانس
+{% endblock %}
+
+{% block main %}
+    {% with request.resolver_match.url_name as url_name %}
+        <div class="sign-in-area ptb-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12 mb-3 mt-4 mt-md-0">
+                                <h5>ایجاد سانس جدید</h5>
+                            </div>
+                            <form method="post" enctype="multipart/form-data">
+                                {% if form.errors %}
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            {% for field in form %}
+                                                {% for error in field.errors %}
+                                                    <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                                                {% endfor %}
+                                            {% endfor %}
+                                            {% for error in form.non_field_errors %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit" class="btn btn-warning">
+                                    ایجاد
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endwith %}
+{% endblock %}

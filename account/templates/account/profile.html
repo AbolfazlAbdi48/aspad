@@ -16,6 +16,53 @@
                     <div class="alert alert-success">
                         {{ request.user.get_full_name }} به اسپاد خوش آمدید
                     </div>
+
+                    <div class="row">
+                        {% if request.user.skill_profile.role == 'gym_owner' %}
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6>مدیریت باشگاه</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        {% if request.user.gyms.count > 0 %}
+                                            <a href="{% url 'account:profile-gym-form' %}"
+                                               class="btn btn-outline-primary">
+                                                ویرایش اطلاعات
+                                            </a>
+                                            <a href="{% url 'gym:gym-detail' request.user.gyms.first.pk %}"
+                                               class="btn btn-outline-warning">
+                                                پروفایل باشگاه
+                                            </a>
+                                            <a href="{% url 'gym:gym-detail' request.user.gyms.first.pk %}#sessions"
+                                               class="btn btn-outline-dark">
+                                                لیست سانس ها
+                                            </a>
+                                            <a href="{% url 'account:profile-gym-reserves' %}"
+                                               class="btn btn-outline-info">
+                                                لیست رزرو ها
+                                            </a>
+                                        {% else %}
+                                            <a href="{% url 'account:profile-gym-form' %}"
+                                               class="btn btn-outline-primary">
+                                                ویرایش اطلاعات
+                                            </a>
+                                            <a href="{% url 'account:profile-gym-form' %}"
+                                               class="btn btn-outline-warning">
+                                                پروفایل باشگاه
+                                            </a>
+                                            <a href="{% url 'account:profile-gym-form' %}" class="btn btn-outline-dark">
+                                                لیست سانس ها
+                                            </a>
+                                            <a href="{% url 'account:profile-gym-form' %}" class="btn btn-outline-info">
+                                                لیست رزرو ها
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

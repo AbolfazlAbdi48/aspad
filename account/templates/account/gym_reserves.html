@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    اسپاد | لیست رزرو ها
+{% endblock %}
+
+{% block main %}
+    <div class="about-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <div class="col-12 mt-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 id="sessions">رزرو های باشگاه</h5>
+                        <a href="{% url 'account:profile-gym-session-create' %}" class="main-btn style-three">ایجاد
+                            سانس</a>
+                    </div>
+                    <div class="row">
+                        {% for session in reserves %}
+                            <div class="col-12 my-2">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6>{{ session.session_info }}</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6>رزرو کننده ها</h6>
+                                        <ul>
+                                            {% for reserve in session.reserved_by.all %}
+                                                <li>
+                                                    {{ reserve.get_full_name }} - {{ reserve.username }}
+                                                </li>
+                                            {% empty %}
+                                                <li>رزروی یافت نشد!</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="alert alert-secondary">
+                                سانسی یافت نشد. <a href="{% url 'account:profile-gym-session-create' %}">
+                                یک سانس اضافه کنید.
+                            </a>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

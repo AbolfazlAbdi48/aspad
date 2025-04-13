@@ -61,14 +61,22 @@
                 </div>
 
                 <div class="col-12 mt-5">
-                    <h5 class="text-center" id="sessions">سانس های باشگاه</h5>
+                    {% if object.owner == request.user %}
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 id="sessions">سانس های باشگاه</h5>
+                            <a href="{% url 'account:profile-gym-session-create' %}" class="main-btn style-three">ایجاد
+                                سانس</a>
+                        </div>
+                    {% else %}
+                        <h5 class="text-center" id="sessions">سانس های باشگاه</h5>
+                    {% endif %}
                     <div class="row">
                         {% for session in object.sessions.all %}
                             <div class="col-md-6 col-12 my-2">
                                 <div class="border rounded p-3 d-flex justify-content-between">
                                     <p class="fw-bold">سانس: {{ session.session_info }}</p>
                                     <div>
-                                        <a href="{% url 'gym:reserve-session' object.pk %}"
+                                        <a href="{% url 'gym:reserve-session' session.pk %}"
                                            class="btn btn-warning btn-sm mt-1">رزرو آنلاین</a>
                                         <a href="tel:{{ object.contact_number }}" class="btn btn-warning btn-sm mt-1">تماس</a>
                                     </div>
