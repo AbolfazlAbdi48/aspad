@@ -1,7 +1,9 @@
 from django.db.models import Q
 from django.shortcuts import render
 from django.utils import timezone
+from django.views.generic import ListView
 
+from account.models import UserSkillProfile
 from auction_module.models import Auction
 from blog_module.models import Article
 from gym_module.models import Gym
@@ -59,3 +61,9 @@ def search_view(request):
         "product_search": product_search,
     }
     return render(request, "core/search.html", context)
+
+
+class CoachListView(ListView):
+    model = UserSkillProfile
+    queryset = UserSkillProfile.objects.filter(role__in=['coach', 'vet'])
+    template_name = "account/profile_match.html"

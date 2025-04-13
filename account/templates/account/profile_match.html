@@ -6,52 +6,82 @@
 {% endblock %}
 
 {% block main %}
-    <div class="sign-in-area ptb-100">
-        <div class="container">
-            <div class="row">
-                {#                <div class="col-md-4 col-12">#}
-                {#                    {% include 'account/components/navbar.html' %}#}
-                {#                </div>#}
-                <div class="col-12 d-flex justify-content-between align-items-center mb-3">
-                    <h6>شبکه سازی در پلتفرم</h6>
-                    <a href="/" class="main-btn style-three btn-sm">بازگشت</a>
+    {% with request.resolver_match.url_name as url_name %}
+        <div class="page-banner-area bg-black bg-img"
+             data-background="{% static 'template/images/banner-bg-shape2.png' %}">
+            <div class="container mw-1680">
+                <div class="page-banner-content">
+                    {% if url_name == "coach-List" %}
+                        <h2>مربیان و دامپزشکان</h2>
+                        <ul class="ps-0 mb-0 list-unstyled justify-content-center page-breadcrumb d-flex flex-wrap gap-4">
+                            <li><a href="{% url 'core:home' %}">صفحه اصلی</a></li>
+                            <li><span class="active">مربی</span></li>
+                        </ul>
+                    {% else %}
+                        <h2>شبکه سازی در اسپاد</h2>
+                        <ul class="ps-0 mb-0 list-unstyled justify-content-center page-breadcrumb d-flex flex-wrap gap-4">
+                            <li><a href="{% url 'core:home' %}">صفحه اصلی</a></li>
+                            <li><span class="active">شبکه سازی در اسپاد</span></li>
+                        </ul>
+                    {% endif %}
                 </div>
-                <div class="col-md-12 col-12">
-                    <div class="row">
-                        {% for match in matches.offers_for_user %}
-                            <div class="col-md-6 col-12 mb-3">
-                                <div class="card">
-                                    {#                                <div class="card-header">#}
-                                    {#                                    مزایده {{ object.horse_name }}#}
-                                    {#                                </div>#}
-                                    <div class="card-body d-flex justify-content-start align-items-center flex-column flex-md-row">
-                                        <img src="{% static 'template/images/blank-prof.webp' %}" alt=""
-                                             class="img-fluid rounded-5 me-3" width="100" height="100">
-                                        <div class="text-center text-md-start">
-                                            <p class="mb-1">{{ match.user.get_full_name }}</p>
-                                            <p class="mb-1">{{ match.user.username }}</p>
-                                            <p class="my-2">
-                                                خدمات:
-                                                {% for offer in match.offers.all %}
-                                                    <small class="badge bg-success">{{ offer.name }}</small>
-                                                {% endfor %}
-                                            </p>
-                                            <p class="my-2">
-                                                تقاضا ها:
-                                                {% for demand in match.demands.all %}
-                                                    <small class="badge bg-primary">{{ demand.name }}</small>
-                                                {% endfor %}
-                                            </p>
-                                            <a href="tel:{{ match.user.username }}"
-                                               class="btn btn-outline-primary btn-sm">تماس</a>
+            </div>
+        </div>
+
+        <div class="sign-in-area ptb-100">
+            <div class="container">
+                <div class="row">
+                    {#                <div class="col-md-4 col-12">#}
+                    {#                    {% include 'account/components/navbar.html' %}#}
+                    {#                </div>#}
+                    {% if url_name == "coach-List" %}
+                        <div class="col-12 text-center mb-3">
+                            <h5>مربیان و دامپزشکان اسپاد</h5>
+                        </div>
+                    {% else %}
+                        <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                            <h5>شبکه سازی در اسپاد</h5>
+                            <a href="/" class="main-btn style-three btn-sm">بازگشت</a>
+                        </div>
+                    {% endif %}
+                    <div class="col-md-12 col-12">
+                        <div class="row">
+                            {% for match in object_list %}
+                                <div class="col-md-6 col-12 mb-3">
+                                    <div class="card">
+                                        {#                                <div class="card-header">#}
+                                        {#                                    مزایده {{ object.horse_name }}#}
+                                        {#                                </div>#}
+                                        <div class="card-body d-flex justify-content-start align-items-center flex-column flex-md-row">
+                                            <img src="{% static 'template/images/blank-prof.webp' %}" alt=""
+                                                 class="img-fluid rounded-5 me-3" width="100" height="100">
+                                            <div class="text-center text-md-start">
+                                                <p class="mb-1">{{ match.user.get_full_name }}
+                                                    - {{ match.get_role_display }}</p>
+                                                <p class="mb-1">{{ match.user.username }}</p>
+                                                <p class="my-2">
+                                                    خدمات:
+                                                    {% for offer in match.offers.all %}
+                                                        <small class="badge bg-success">{{ offer.name }}</small>
+                                                    {% endfor %}
+                                                </p>
+                                                <p class="my-2">
+                                                    تقاضا ها:
+                                                    {% for demand in match.demands.all %}
+                                                        <small class="badge bg-primary">{{ demand.name }}</small>
+                                                    {% endfor %}
+                                                </p>
+                                                <a href="tel:{{ match.user.username }}"
+                                                   class="btn btn-outline-primary btn-sm">تماس</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endwith %}
 {% endblock %}

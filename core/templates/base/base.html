@@ -60,6 +60,9 @@
                             <a href="{% url 'shop:product-list' %}" class="nav-link dropdown-toggle">فروشگاه</a>
                         </li>
                         <li class="nav-item">
+                            <a href="{% url 'core:coach-List' %}" class="nav-link dropdown-toggle">مربیان/دامپزشک</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{% url 'shop:cart' %}" class="nav-link dropdown-toggle">سبد خرید</a>
                         </li>
                         {% if request.user.is_authenticated %}

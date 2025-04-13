@@ -138,6 +138,7 @@ def profile_match_view(request):
     """
     matches = find_matches_for_user(request.user)
     context = {
+        'object_list': matches['offers_for_user'],
         'matches': matches
     }
     return render(request, "account/profile_match.html", context)
