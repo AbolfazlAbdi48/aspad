@@ -14,10 +14,14 @@ from shop_module.models import Shop, Product
 def home(request):
     auctions = Auction.objects.filter()[:4]
     blog = Article.objects.filter(status='p', publish_time__lte=timezone.now())[:3]
+    gyms = Gym.objects.all()[:4]
+    products = Product.objects.all()[:4]
 
     context = {
         "auctions": auctions,
-        "blog": blog
+        "blog": blog,
+        "gyms": gyms,
+        "products": products
     }
     return render(request, "core/home.html", context)
 

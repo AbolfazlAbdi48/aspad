@@ -921,16 +921,16 @@ textarea.form-control {
     padding-left: 20px
 }
 
-.main-nav .navbar .navbar-nav .nav-item .nav-link.dropdown-toggle::before {
-    content: "";
-    font-family: IcoFont;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    line-height: 1;
-    font-size: 17px
-}
+/*.main-nav .navbar .navbar-nav .nav-item .nav-link.dropdown-toggle::before {*/
+/*    content: "";*/
+/*    font-family: IcoFont;*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    transform: translateY(-50%);*/
+/*    left: 0;*/
+/*    line-height: 1;*/
+/*    font-size: 17px*/
+/*}*/
 
 .main-nav .navbar .navbar-nav .nav-item .nav-link.dropdown-toggle::after {
     display: none
