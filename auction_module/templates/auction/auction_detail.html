@@ -201,7 +201,7 @@
                     <h4>درباره نژاد اسب</h4>
                     <hr>
                     <div class="mb-4">
-                        {{ object.horse_description }}
+                        {{ object.horse_description|safe }}
                     </div>
                     {% if object.horse_video %}
                         <video class="img-fluid" controls>
