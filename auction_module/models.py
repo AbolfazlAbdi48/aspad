@@ -34,6 +34,7 @@ class Auction(models.Model):
     class Meta:
         verbose_name_plural = '1. مزایده ها'
         verbose_name = 'مزایده'
+        ordering = ('-start_time',)
 
     def get_start_time_jalali(self):
         return jalali_converter_str(self.start_time)

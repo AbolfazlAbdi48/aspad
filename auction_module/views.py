@@ -14,6 +14,9 @@ class AuctionListView(ListView):
     model = Auction
     template_name = "auction/auction_list.html"
 
+    def get_queryset(self):
+        return self.model.objects.all().order_by('-start_time')
+
 
 class AuctionDetailView(DetailView):
     model = Auction
