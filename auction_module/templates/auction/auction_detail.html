@@ -58,7 +58,7 @@
                     <div class="about-content-three">
                         <span class="top-title">مزایده</span>
                         <h2 class="">مزایده {{ object.horse_name }}</h2>
-                        <p>{{ object.horse_description }}</p>
+                        <p>{{ object.horse_summary }}</p>
 
                         <a href="#auction-detail"
                            class="main-btn style-one">ثبت پیشنهاد<i
@@ -90,21 +90,21 @@
             {% endif %}
             <ul class="nav nav-tabs product-info-tabs justify-content-center" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
+                    <button class="nav-link" id="description-tab" data-bs-toggle="tab"
                             data-bs-target="#description-tab-pane" type="button" role="tab"
-                            aria-controls="description-tab-pane" aria-selected="true">جزئیات مزایده
+                            aria-controls="description-tab-pane" aria-selected="false">جزئیات مزایده
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="size-chart-tab" data-bs-toggle="tab"
+                    <button class="nav-link active" id="size-chart-tab" data-bs-toggle="tab"
                             data-bs-target="#size-chart-tab-pane"
-                            type="button" role="tab" aria-controls="size-chart-tab-pane" aria-selected="false">پیشنهادات
+                            type="button" role="tab" aria-controls="size-chart-tab-pane" aria-selected="true">پیشنهادات
                         ثبت شده
                     </button>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="description-tab-pane" role="tabpanel"
+                <div class="tab-pane fade" id="description-tab-pane" role="tabpanel"
                      aria-labelledby="description-tab" tabindex="0">
                     <div class="services-area pb-75">
                         <div class="container">
@@ -157,7 +157,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="size-chart-tab-pane" role="tabpanel" aria-labelledby="size-chart-tab"
+                <div class="tab-pane fade show active" id="size-chart-tab-pane" role="tabpanel"
+                     aria-labelledby="size-chart-tab"
                      tabindex="0">
                     <table class="table table-bordered">
                         <thead>
@@ -192,6 +193,20 @@
                                     class="fa-regular fa-arrow-left"></i></a>
                         {% endif %}
                     {% endif %}
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <div class="alert alert-secondary">
+                    <h4>درباره نژاد اسب</h4>
+                    <hr>
+                    <div class="mb-4">
+                        {{ object.horse_description }}
+                    </div>
+                    <video class="img-fluid" controls>
+                        <source src="{{ object.horse_video.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         </div>

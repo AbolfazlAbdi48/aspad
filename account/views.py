@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from account.forms import PhoneNumberForm, RegisterForm, PasswordVerifyForm, AuctionForm
-from account.models import User, UserSkillProfile
+from account.models import User, UserSkillProfile, LoginSession
 from auction_module.models import Auction
 from evaluation_module.models import HorseEvaluationRequest
 from extentions.data_matching import find_matches_for_user
@@ -24,15 +24,17 @@ def login_view(request):
     ip = get_client_ip(request)
     next_url = request.GET.get('next')
 
-    if next_url:
-        cache.set(f"{ip}-for-next-url", next_url, 500)
-
     if form.is_valid():
         phone_number = form.cleaned_data.get('phone_number')
         user_exist = User.objects.filter(username=phone_number).first()
 
-        ip = get_client_ip(request)
-        cache.set(f"{ip}-for-authentication", phone_number, 1000)
+        LoginSession.objects.filter(ip_address=ip).delete()
+
+        LoginSession.objects.create(
+            ip_address=ip,
+            phone_number=phone_number,
+            next_url=next_url
+        )
 
         if user_exist:
             if user_exist.is_active:
@@ -50,25 +52,25 @@ def login_view(request):
 
 def verify_pass_view(request):
     form = PasswordVerifyForm(request.POST or None)
-
     ip = get_client_ip(request)
-    phone = cache.get(f"{ip}-for-authentication")
-    next_url = cache.get(f"{ip}-for-next-url")
 
-    if phone is None:
+    session = LoginSession.objects.filter(ip_address=ip).first()
+    if not session:
         raise Http404
 
+    phone = session.phone_number
+    next_url = session.next_url
     user = get_object_or_404(User, username=phone)
 
     if form.is_valid():
         password = form.cleaned_data.get('password')
-
         authenticated_user = authenticate(request, username=user.username, password=password)
 
         if authenticated_user:
-            cache.delete(f"{ip}-for-authentication")
             login(request, user=authenticated_user)
             messages.success(request, "به اسپاد خوش آمدید!")
+
+            session.delete()
 
             if next_url:
                 return redirect(next_url)
@@ -86,8 +88,13 @@ def verify_pass_view(request):
 def complete_register_view(request):
     form = RegisterForm(request.POST or None)
     ip = get_client_ip(request)
-    next_url = cache.get(f"{ip}-for-next-url")
-    phone = cache.get(f"{ip}-for-authentication")
+
+    session = LoginSession.objects.filter(ip_address=ip).first()
+    if not session:
+        raise Http404
+
+    phone = session.phone_number
+    next_url = session.next_url
 
     try:
         user = User.objects.get(username=phone)
@@ -95,7 +102,7 @@ def complete_register_view(request):
         raise Http404
 
     if form.is_valid():
-        cd = form.cleaned_data  # cleaned data
+        cd = form.cleaned_data
 
         user.first_name = cd.get('first_name')
         user.last_name = cd.get('last_name')
@@ -112,7 +119,10 @@ def complete_register_view(request):
 
         login(request, user)
         messages.success(request, message="به اسپاد خوش آمدید!")
-        cache.delete(f"{ip}-for-authentication")
+
+        # حذف داده بعد از ثبت‌نام کامل
+        session.delete()
+
         if next_url:
             return redirect(next_url)
         return redirect('account:profile-match')

@@ -48,3 +48,13 @@ class UserSkillProfile(models.Model):
 
     def __str__(self):
         return f"پروفایل مهارتی {self.user.username}"
+
+
+class LoginSession(models.Model):
+    ip_address = models.GenericIPAddressField(unique=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
+    next_url = models.CharField(max_length=255, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.phone_number or self.ip_address

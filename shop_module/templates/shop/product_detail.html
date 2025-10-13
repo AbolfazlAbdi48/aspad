@@ -45,7 +45,7 @@
                         <p class="text-success fw-bold h6">
                             <i class="fas fa-money-bill"></i>
                             {{ object.price|intcomma:False }} تومان</p>
-                        <p>{{ object.description|safe }}</p>
+                        <p>{{ object.description|safe|truncatewords:10}}</p>
 
                         <button id="cartAdd" class="main-btn style-one">افزودن
                             به سبد
