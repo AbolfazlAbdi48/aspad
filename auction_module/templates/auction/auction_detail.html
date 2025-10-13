@@ -203,10 +203,12 @@
                     <div class="mb-4">
                         {{ object.horse_description }}
                     </div>
-                    <video class="img-fluid" controls>
-                        <source src="{{ object.horse_video.url }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                    {% if object.horse_video %}
+                        <video class="img-fluid" controls>
+                            <source src="{{ object.horse_video.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    {% endif %}
                 </div>
             </div>
         </div>
