@@ -171,7 +171,8 @@ class EvaluationRequestDetailView(LoginRequiredMixin, DetailView):
 
 class EvaluationRequestCreateView(LoginRequiredMixin, CreateView):
     model = HorseEvaluationRequest
-    fields = ['horse_name', 'horse_age', 'horse_breed', 'horse_image', 'comment']
+    fields = ['horse_name', 'horse_age', 'horse_breed', 'horse_image', 'horse_video', 'horse_doc_first',
+              'horse_doc_second', 'horse_doc_third', 'comment']
     template_name = 'account/evaluation_request_create.html'
     success_url = reverse_lazy('account:profile-evaluation-requests')
 

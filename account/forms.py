@@ -82,7 +82,7 @@ class AuctionForm(forms.ModelForm):
     class Meta:
         model = Auction
         fields = ['horse_name', 'horse_age', 'horse_breed', 'horse_description',
-                  'horse_image', 'start_price', 'start_time', 'end_time']
+                  'horse_image', 'horse_video', 'horse_doc', 'start_price', 'start_time', 'end_time']
         widgets = {
             'start_time': forms.DateTimeInput(attrs={
                 'type': 'datetime-local',

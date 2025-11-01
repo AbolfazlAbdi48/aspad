@@ -15,6 +15,21 @@ class Auction(models.Model):
         ('pending', 'در انتظار تایید'),
     ]
 
+    HORSE_CATEGORY_CHOICES = [
+        ('thoroughbred', 'اصیل'),
+        ('quarter', 'کوارتر'),
+        ('arabian', 'عربی'),
+        ('mustang', 'موستانگ'),
+        ('other', 'سایر'),
+    ]
+
+    PRICE_CATEGORY_CHOICES = [
+        ('economy', 'اقتصادی (زیر ۱۰۰ میلیون)'),
+        ('medium', 'متوسط (۱۰۰-۵۰۰ میلیون)'),
+        ('premium', 'پریمیوم (۵۰۰ میلیون - ۱ میلیارد)'),
+        ('luxury', 'لوکس (بالای ۱ میلیارد)'),
+    ]
+
     horse = models.ForeignKey(Horse, null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('اسب'))
     horse_name = models.CharField(null=True, max_length=255, verbose_name=_('نام اسب'))
     horse_age = models.IntegerField(null=True, verbose_name=_('سن'))
@@ -23,6 +38,21 @@ class Auction(models.Model):
     horse_description = models.TextField(null=True, verbose_name=_('درباره اسب'))
     horse_image = models.ImageField(null=True, upload_to='horses/', verbose_name=_('عکس اسب'))
     horse_video = models.FileField(null=True, blank=True, upload_to='horses/', verbose_name=_('ویدئو اسب'))
+    horse_doc = models.FileField(null=True, blank=True, upload_to='horses/', verbose_name=_('مدارک اسب'))
+    horse_category = models.CharField(
+        max_length=20,
+        choices=HORSE_CATEGORY_CHOICES,
+        null=True,
+        blank=True,
+        verbose_name="دسته‌بندی اسب"
+    )
+    price_category = models.CharField(
+        max_length=20,
+        choices=PRICE_CATEGORY_CHOICES,
+        null=True,
+        blank=True,
+        verbose_name="دسته‌بندی قیمت"
+    )
     start_price = models.DecimalField(max_digits=10, decimal_places=0, verbose_name=_('حداقل مبلغ مزایده'))
     start_time = models.DateTimeField(verbose_name=_('شروع مزایده'))
     end_time = models.DateTimeField(verbose_name=_('پایان مزایده'))

@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.views.generic import DetailView, CreateView, ListView
 from django.urls import reverse
 
+from auction_module.filters import AuctionFilter
 from auction_module.forms import BidForm
 from auction_module.models import Auction, Bid
 
@@ -15,7 +16,14 @@ class AuctionListView(ListView):
     template_name = "auction/auction_list.html"
 
     def get_queryset(self):
-        return self.model.objects.all().order_by('-start_time')
+        queryset = self.model.objects.all().order_by('-start_time')
+        self.filterset = AuctionFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = self.filterset
+        return context
 
 
 class AuctionDetailView(DetailView):

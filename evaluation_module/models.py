@@ -35,6 +35,10 @@ class HorseEvaluationRequest(models.Model):
     horse_age = models.IntegerField(null=True, verbose_name=_('سن اسب'))
     horse_breed = models.CharField(null=True, max_length=255, verbose_name=_('نژاد اسب'))
     horse_image = models.ImageField(null=True, upload_to='horses/', verbose_name=_('عکس اسب'))
+    horse_video = models.ImageField(null=True, upload_to='horses/', verbose_name=_('ویدئو اسب'))
+    horse_doc_first = models.ImageField(null=True, upload_to='horses/', verbose_name=_('شناسنامه/پاسپورت اسب'))
+    horse_doc_second = models.ImageField(null=True, upload_to='horses/', verbose_name=_('مدرک xray'))
+    horse_doc_third = models.ImageField(null=True, upload_to='horses/', verbose_name=_('مدارک اسب'))
     requested_by = models.ForeignKey(User, null=True, on_delete=models.CASCADE, verbose_name=_("Requested By"))
     comment = models.TextField(blank=True, null=True, verbose_name=_("توضیحات"))
     status = models.CharField(
