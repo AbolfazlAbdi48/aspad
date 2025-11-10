@@ -11,12 +11,12 @@ class AuctionFilter(django_filters.FilterSet):
 
     horse_category = django_filters.ChoiceFilter(
         choices=Auction.HORSE_CATEGORY_CHOICES,
-        label='دسته‌بندی اسب'
+        label='نژاد اسب'
     )
 
     price_category = django_filters.ChoiceFilter(
         choices=Auction.PRICE_CATEGORY_CHOICES,
-        label='دسته‌بندی قیمت'
+        label='محدوده قیمت'
     )
 
     class Meta:

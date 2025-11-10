@@ -16,9 +16,15 @@ class Auction(models.Model):
     ]
 
     HORSE_CATEGORY_CHOICES = [
-        ('thoroughbred', 'اصیل'),
+        ('thoroughbred', 'اصیل انگلیسی'),
+        ('arabian', 'اسب عربی'),
         ('quarter', 'کوارتر'),
-        ('arabian', 'عربی'),
+        ('appaloosa', 'آپالوسا'),
+        ('paint', 'پینت'),
+        ('andalusian', 'آندالوسی'),
+        ('friesian', 'فریزیان'),
+        ('hanoverian', 'هانووری'),
+        ('akhal_teke', 'آخال تکه'),
         ('mustang', 'موستانگ'),
         ('other', 'سایر'),
     ]
@@ -44,14 +50,14 @@ class Auction(models.Model):
         choices=HORSE_CATEGORY_CHOICES,
         null=True,
         blank=True,
-        verbose_name="دسته‌بندی اسب"
+        verbose_name="نژاد اسب"
     )
     price_category = models.CharField(
         max_length=20,
         choices=PRICE_CATEGORY_CHOICES,
         null=True,
         blank=True,
-        verbose_name="دسته‌بندی قیمت"
+        verbose_name="محدوده قیمت"
     )
     start_price = models.DecimalField(max_digits=10, decimal_places=0, verbose_name=_('حداقل مبلغ مزایده'))
     start_time = models.DateTimeField(verbose_name=_('شروع مزایده'))

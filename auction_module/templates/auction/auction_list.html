@@ -25,20 +25,22 @@
                     <div class="filter-form bg-light p-4 rounded mb-4 border">
                         <form method="get">
                             <div class="row g-3 align-items-end">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
+                                    <label for="id_horse_category">نژاد اسب:</label>
+                                    {{ filter.form.horse_category }}
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="id_price_category">محدوده قیمت:</label>
+                                    {{ filter.form.price_category }}
+                                </div>
+
+                                <div class="col-md-4">
                                     <label for="id_horse_name">نام اسب:</label>
                                     {{ filter.form.horse_name }}
                                 </div>
 
-                                <div class="col-md-2">
-                                    <label for="id_horse_category">دسته‌بندی اسب:</label>
-                                    {{ filter.form.horse_category }}
-                                </div>
-
-                                <div class="col-md-2">
-                                    <label for="id_price_category">دسته‌بندی قیمت:</label>
-                                    {{ filter.form.price_category }}
-                                </div>
+                                <hr>
 
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-success">اعمال فیلتر</button>
